@@ -1,4 +1,4 @@
-package sample;
+package io.imagep;
 
 public class Controller {
 }
