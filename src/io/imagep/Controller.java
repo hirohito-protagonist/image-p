@@ -2,15 +2,20 @@ package io.imagep;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable {
 
     @FXML
     private BorderPane root;
@@ -18,6 +23,9 @@ public class Controller {
     private ImageView imageView;
     @FXML
     private Label dimensionLabel;
+    @FXML
+    private Slider contrast;
+
 
     @FXML
     private void imageOpenAction(ActionEvent e) {
@@ -40,5 +48,17 @@ public class Controller {
 
     private String dimensionInformation(Image image) {
         return image == null ? "0 x 0px" : (int)image.getWidth() + " x " + (int)image.getHeight() + "px";
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+
+        contrast.valueProperty().addListener((slider, prevValue, currentValue) -> {
+            colorAdjust.setContrast((double)currentValue);
+            imageView.setEffect(colorAdjust);
+        });
     }
 }
