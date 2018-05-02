@@ -25,6 +25,12 @@ public class Controller implements Initializable {
     private Label dimensionLabel;
     @FXML
     private Slider contrast;
+    @FXML
+    private Slider hue;
+    @FXML
+    private Slider brightness;
+    @FXML
+    private Slider saturation;
 
 
     @FXML
@@ -58,6 +64,21 @@ public class Controller implements Initializable {
 
         contrast.valueProperty().addListener((slider, prevValue, currentValue) -> {
             colorAdjust.setContrast((double)currentValue);
+            imageView.setEffect(colorAdjust);
+        });
+
+        hue.valueProperty().addListener((slider, prevValue, currentValue) -> {
+            colorAdjust.setHue((double)currentValue);
+            imageView.setEffect(colorAdjust);
+        });
+
+        brightness.valueProperty().addListener((slider, prevValue, currentValue) -> {
+            colorAdjust.setBrightness((double)currentValue);
+            imageView.setEffect(colorAdjust);
+        });
+
+        saturation.valueProperty().addListener((slider, prevValue, currentValue) -> {
+            colorAdjust.setSaturation((double)currentValue);
             imageView.setEffect(colorAdjust);
         });
     }

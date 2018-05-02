@@ -41,7 +41,7 @@
       </MenuBar>
    </top>
    <center>
-      <SplitPane dividerPositions="0.7272727272727273" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.7" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
@@ -52,7 +52,7 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane maxWidth="600.0" minHeight="0.0" minWidth="300.0" prefWidth="300.0">
                <children>
                   <VBox layoutX="38.0" layoutY="54.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -62,6 +62,24 @@
                            </padding>
                         </Label>
                         <Slider fx:id="contrast" blockIncrement="0.1" majorTickUnit="0.25" max="1.0" min="-1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                        <Label text="Hue">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Slider fx:id="hue" blockIncrement="0.1" layoutX="10.0" layoutY="31.0" majorTickUnit="0.25" max="1.0" min="-1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                        <Label layoutX="10.0" layoutY="76.0" text="Brightness">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Slider fx:id="brightness" blockIncrement="0.1" layoutX="10.0" layoutY="97.0" majorTickUnit="0.25" max="1.0" min="-1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                        <Label layoutX="10.0" layoutY="142.0" text="Saturation">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Slider fx:id="saturation" blockIncrement="0.1" layoutX="10.0" layoutY="163.0" majorTickUnit="0.25" max="1.0" min="-1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                      </children>
                   </VBox>
                </children></AnchorPane>
