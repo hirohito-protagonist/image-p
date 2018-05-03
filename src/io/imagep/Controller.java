@@ -1,5 +1,6 @@
 package io.imagep;
 
+import io.imagep.operation.ImageOperation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,6 +36,7 @@ public class Controller implements Initializable {
 
     @FXML
     private void imageOpenAction(ActionEvent e) {
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image");
         fileChooser.getExtensionFilters().add(
@@ -53,6 +55,7 @@ public class Controller implements Initializable {
 
 
     private String dimensionInformation(Image image) {
+
         return image == null ? "0 x 0px" : (int)image.getWidth() + " x " + (int)image.getHeight() + "px";
     }
 
@@ -81,5 +84,15 @@ public class Controller implements Initializable {
             colorAdjust.setSaturation((double)currentValue);
             imageView.setEffect(colorAdjust);
         });
+    }
+
+
+    @FXML
+    private void grayScaleAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
+            imageView.setImage(ImageOperation.grayScale(image));
+        }
     }
 }
