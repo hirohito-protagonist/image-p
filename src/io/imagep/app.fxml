@@ -87,14 +87,38 @@
       </SplitPane>
    </center>
    <bottom>
-      <HBox prefHeight="20.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="dimensionLabel" text="0 x 0px">
-               <HBox.margin>
+        <AnchorPane prefHeight="20.0">
+           <children>
+              <HBox prefHeight="20.0">
+                 <children>
+                    <Label fx:id="dimensionLabel" text="0 x 0px">
+                       <HBox.margin>
+                          <Insets left="5.0" />
+                       </HBox.margin>
+                    </Label>
+                 </children>
+               <padding>
                   <Insets left="5.0" />
-               </HBox.margin>
-            </Label>
-         </children>
-      </HBox>
+               </padding>
+              </HBox>
+            <HBox prefHeight="20.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                    <Label fx:id="zoomInformation" text="100%">
+                       <padding>
+                          <Insets left="5.0" />
+                       </padding>
+                    </Label>
+                    <Slider fx:id="zoom" blockIncrement="0.1" disable="true" majorTickUnit="1.0" max="5.0" min="0.1" snapToTicks="true" value="1.0">
+                       <padding>
+                          <Insets left="5.0" />
+                       </padding>
+                    </Slider>
+               </children>
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </HBox>
+           </children>
+        </AnchorPane>
    </bottom>
 </BorderPane>
