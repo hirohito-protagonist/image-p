@@ -4,7 +4,6 @@ import io.imagep.operation.ImageOperation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.ColorAdjust;
@@ -92,7 +91,6 @@ public class Controller implements Initializable {
         });
 
         zoom.valueProperty().addListener((slider, prevValue, currentValue) -> {
-
             Image image = imageView.getImage();
             double scale = (double) currentValue;
             double w = image.getWidth() * scale;

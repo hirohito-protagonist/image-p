@@ -1,10 +1,8 @@
 package io.imagep.operation;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
+import javafx.scene.image.*;
+
+import java.nio.IntBuffer;
 
 public class ImageOperation {
 
@@ -18,12 +16,19 @@ public class ImageOperation {
         PixelWriter pixelWriter = image.getPixelWriter();
         PixelReader pixelReader = originalImage.getPixelReader();
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                Color color = pixelReader.getColor(x, y);
-                pixelWriter.setColor(x, y, color.grayscale());
-            }
+        int[] buffer = new int[width * height];
+        WritablePixelFormat<IntBuffer> pixelFormat = PixelFormat.getIntArgbInstance();
+        pixelReader.getPixels(0, 0, width, height, pixelFormat, buffer, 0, width);
+        for (int i = 0; i < buffer.length; i++) {
+            int argb = buffer[i];
+            int a = (argb >> 24) & 0xff;
+            int r = (argb >> 16) & 0xff;
+            int g = (argb >> 8) & 0xff;
+            int b = argb & 0xff;
+            int color = (int) (0.299 * r + 0.587 * g + 0.114 * b);
+            buffer[i] = (a << 24) | (color << 16) | (color << 8) | color;
         }
+        pixelWriter.setPixels(0, 0, width, height, pixelFormat, buffer, 0, width);
 
         return image;
     }
