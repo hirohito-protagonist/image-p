@@ -110,4 +110,13 @@ public class Controller implements Initializable {
             imageView.setImage(ImageOperation.grayScale(image));
         }
     }
+
+    @FXML
+    private void invertAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
+            imageView.setImage(ImageOperation.invert(image));
+        }
+    }
 }

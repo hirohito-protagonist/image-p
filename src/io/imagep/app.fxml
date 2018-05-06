@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.imagep.Controller">
+<BorderPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.imagep.Controller">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -30,6 +30,7 @@
           <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#grayScaleAction" text="Grayscale" />
+                  <MenuItem mnemonicParsing="false" onAction="#invertAction" text="Invert" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
