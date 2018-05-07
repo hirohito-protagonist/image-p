@@ -2,8 +2,10 @@ package io.imagep.operation;
 
 import com.sun.istack.internal.NotNull;
 import javafx.scene.image.*;
+import javafx.scene.paint.Color;
 
 import java.nio.IntBuffer;
+import java.util.Arrays;
 import java.util.function.Function;
 
 
@@ -17,6 +19,11 @@ public class ImageOperation {
     public static WritableImage invert(@NotNull final Image originalImage) {
 
         return internalImageOperation(originalImage, ImageOperation::invertPixels);
+    }
+
+    public static WritableImage darker(@NotNull final Image originalImage) {
+
+        return internalImageOperation(originalImage, ImageOperation::darkerPixels);
     }
 
     private static WritableImage internalImageOperation(@NotNull final Image originalImage, Function<int[], int[]> pixelsTransformation) {
@@ -65,5 +72,22 @@ public class ImageOperation {
             pixels[i] = (a << 24) | (color << 16) | (color << 8) | color;
         }
         return pixels;
+    }
+
+    private static int[] darkerPixels(@NotNull int[] pixels) {
+
+        return Arrays.stream(pixels)
+            .map((argb) -> {
+
+                int a = (argb >> 24) & 0xff;
+                int r = (argb >> 16) & 0xff;
+                int g = (argb >> 8) & 0xff;
+                int b = argb & 0xff;
+
+                Color darker = Color.rgb(r, g, b, a / 255).darker();
+                return (a << 24) | ((int)(darker.getRed() * 255) << 16) | ((int)(darker.getGreen() * 255) << 8) | (int)(darker.getBlue() * 255);
+            })
+            .parallel()
+            .toArray();
     }
 }

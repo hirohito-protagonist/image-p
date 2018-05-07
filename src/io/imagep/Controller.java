@@ -119,4 +119,13 @@ public class Controller implements Initializable {
             imageView.setImage(ImageOperation.invert(image));
         }
     }
+
+    @FXML
+    private void darkenAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
+            imageView.setImage(ImageOperation.darker(image));
+        }
+    }
 }

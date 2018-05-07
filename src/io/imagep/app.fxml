@@ -31,6 +31,7 @@
             <items>
               <MenuItem mnemonicParsing="false" onAction="#grayScaleAction" text="Grayscale" />
                   <MenuItem mnemonicParsing="false" onAction="#invertAction" text="Invert" />
+                  <MenuItem mnemonicParsing="false" onAction="#darkenAction" text="Darker" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
