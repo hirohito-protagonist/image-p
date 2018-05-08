@@ -26,6 +26,11 @@ public class ImageOperation {
         return internalImageOperation(originalImage, ImageOperation::darkerPixels);
     }
 
+    public static WritableImage lighten(@NotNull final Image originalImage) {
+
+        return internalImageOperation(originalImage, ImageOperation::lightenPixels);
+    }
+
     private static WritableImage internalImageOperation(@NotNull final Image originalImage, Function<int[], int[]> pixelsTransformation) {
 
         int width = (int)originalImage.getWidth();
@@ -89,5 +94,22 @@ public class ImageOperation {
             })
             .parallel()
             .toArray();
+    }
+
+    private static int[] lightenPixels(@NotNull int[] pixels) {
+
+        return Arrays.stream(pixels)
+                .map((argb) -> {
+
+                    int a = (argb >> 24) & 0xff;
+                    int r = (argb >> 16) & 0xff;
+                    int g = (argb >> 8) & 0xff;
+                    int b = argb & 0xff;
+
+                    Color darker = Color.rgb(r, g, b, a / 255).brighter();
+                    return (a << 24) | ((int)(darker.getRed() * 255) << 16) | ((int)(darker.getGreen() * 255) << 8) | (int)(darker.getBlue() * 255);
+                })
+                .parallel()
+                .toArray();
     }
 }

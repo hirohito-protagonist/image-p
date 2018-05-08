@@ -128,4 +128,13 @@ public class Controller implements Initializable {
             imageView.setImage(ImageOperation.darker(image));
         }
     }
+
+    @FXML
+    private void lightenAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
+            imageView.setImage(ImageOperation.lighten(image));
+        }
+    }
 }
