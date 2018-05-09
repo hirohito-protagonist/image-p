@@ -51,7 +51,7 @@ public class ImageOperation {
     }
 
     /** Creates side effect on pixels collection */
-    private static int[] invertPixels(@NotNull int[] pixels) {
+    public static int[] invertPixels(@NotNull int[] pixels) {
 
         for (int i = 0; i < pixels.length; i++) {
             int argb = pixels[i];
@@ -65,7 +65,7 @@ public class ImageOperation {
     }
 
     /** Creates side effect on pixels collection */
-    private static int[] grayScalePixels(@NotNull int[] pixels) {
+    public static int[] grayScalePixels(@NotNull int[] pixels) {
 
         for (int i = 0; i < pixels.length; i++) {
             int argb = pixels[i];
@@ -79,7 +79,7 @@ public class ImageOperation {
         return pixels;
     }
 
-    private static int[] darkerPixels(@NotNull int[] pixels) {
+    public static int[] darkerPixels(@NotNull int[] pixels) {
 
         return Arrays.stream(pixels)
             .map((argb) -> {
@@ -96,7 +96,7 @@ public class ImageOperation {
             .toArray();
     }
 
-    private static int[] lightenPixels(@NotNull int[] pixels) {
+    public static int[] lightenPixels(@NotNull int[] pixels) {
 
         return Arrays.stream(pixels)
                 .map((argb) -> {
