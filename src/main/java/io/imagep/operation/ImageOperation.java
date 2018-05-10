@@ -82,6 +82,7 @@ public class ImageOperation {
     public static int[] darkerPixels(@NotNull int[] pixels) {
 
         return Arrays.stream(pixels)
+            .parallel()
             .map((argb) -> {
 
                 int a = (argb >> 24) & 0xff;
@@ -92,13 +93,13 @@ public class ImageOperation {
                 Color darker = Color.rgb(r, g, b, a / 255).darker();
                 return (a << 24) | ((int)(darker.getRed() * 255) << 16) | ((int)(darker.getGreen() * 255) << 8) | (int)(darker.getBlue() * 255);
             })
-            .parallel()
             .toArray();
     }
 
     public static int[] lightenPixels(@NotNull int[] pixels) {
 
         return Arrays.stream(pixels)
+                .parallel()
                 .map((argb) -> {
 
                     int a = (argb >> 24) & 0xff;
@@ -109,7 +110,6 @@ public class ImageOperation {
                     Color darker = Color.rgb(r, g, b, a / 255).brighter();
                     return (a << 24) | ((int)(darker.getRed() * 255) << 16) | ((int)(darker.getGreen() * 255) << 8) | (int)(darker.getBlue() * 255);
                 })
-                .parallel()
                 .toArray();
     }
 }
