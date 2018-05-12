@@ -33,6 +33,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#invertAction" text="Invert" />
                   <MenuItem mnemonicParsing="false" onAction="#darkenAction" text="Darker" />
                   <MenuItem mnemonicParsing="false" onAction="#lightenAction" text="Brighter" />
+                  <MenuItem mnemonicParsing="false" onAction="#saturateAction" text="Saturate" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

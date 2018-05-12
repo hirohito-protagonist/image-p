@@ -137,4 +137,13 @@ public class Controller implements Initializable {
             imageView.setImage(ImageOperation.lighten(image));
         }
     }
+
+    @FXML
+    private void saturateAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
+            imageView.setImage(ImageOperation.saturate(image));
+        }
+    }
 }
