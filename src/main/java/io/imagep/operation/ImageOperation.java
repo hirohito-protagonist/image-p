@@ -91,57 +91,26 @@ public class ImageOperation {
 
     public static int[] darkerPixels(@NotNull int[] pixels) {
 
-        return Arrays.stream(pixels)
-            .parallel()
-            .map((argb) -> {
-
-                int a = (argb >> 24) & 0xff;
-                int r = (argb >> 16) & 0xff;
-                int g = (argb >> 8) & 0xff;
-                int b = argb & 0xff;
-
-                Color darker = Color.rgb(r, g, b, a / 255).darker();
-                return (a << 24) | ((int)(darker.getRed() * 255) << 16) | ((int)(darker.getGreen() * 255) << 8) | (int)(darker.getBlue() * 255);
-            })
-            .toArray();
+        return ImageOperation.colorTransform(pixels, Color::darker);
     }
 
     public static int[] lightenPixels(@NotNull int[] pixels) {
 
-        return Arrays.stream(pixels)
-                .parallel()
-                .map((argb) -> {
-
-                    int a = (argb >> 24) & 0xff;
-                    int r = (argb >> 16) & 0xff;
-                    int g = (argb >> 8) & 0xff;
-                    int b = argb & 0xff;
-
-                    Color darker = Color.rgb(r, g, b, a / 255).brighter();
-                    return (a << 24) | ((int)(darker.getRed() * 255) << 16) | ((int)(darker.getGreen() * 255) << 8) | (int)(darker.getBlue() * 255);
-                })
-                .toArray();
+        return ImageOperation.colorTransform(pixels, Color::brighter);
     }
 
     public static int[] saturatePixels(@NotNull int[] pixels) {
 
-        return Arrays.stream(pixels)
-                .parallel()
-                .map((argb) -> {
-
-                    int a = (argb >> 24) & 0xff;
-                    int r = (argb >> 16) & 0xff;
-                    int g = (argb >> 8) & 0xff;
-                    int b = argb & 0xff;
-
-                    Color darker = Color.rgb(r, g, b, a / 255).saturate();
-                    return (a << 24) | ((int)(darker.getRed() * 255) << 16) | ((int)(darker.getGreen() * 255) << 8) | (int)(darker.getBlue() * 255);
-                })
-                .toArray();
+        return ImageOperation.colorTransform(pixels, Color::saturate);
     }
 
     public static int[] desaturatePixels(@NotNull int[] pixels) {
 
+        return ImageOperation.colorTransform(pixels, Color::desaturate);
+    }
+
+    private static int[] colorTransform(@NotNull int[] pixels, Function<Color, Color> mapColor) {
+
         return Arrays.stream(pixels)
                 .parallel()
                 .map((argb) -> {
@@ -151,8 +120,8 @@ public class ImageOperation {
                     int g = (argb >> 8) & 0xff;
                     int b = argb & 0xff;
 
-                    Color darker = Color.rgb(r, g, b, a / 255).desaturate();
-                    return (a << 24) | ((int)(darker.getRed() * 255) << 16) | ((int)(darker.getGreen() * 255) << 8) | (int)(darker.getBlue() * 255);
+                    Color c = mapColor.apply(Color.rgb(r, g, b, a / 255));
+                    return (a << 24) | ((int)(c.getRed() * 255) << 16) | ((int)(c.getGreen() * 255) << 8) | (int)(c.getBlue() * 255);
                 })
                 .toArray();
     }
