@@ -9,6 +9,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
@@ -154,5 +155,33 @@ public class Controller implements Initializable {
         if (image != null) {
             imageView.setImage(ImageOperation.desaturate(image));
         }
+    }
+
+    @FXML
+    private void applyEffectsAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
+            imageView.setImage(imageViewSnapshot(imageView));
+            contrast.setValue(0);
+            hue.setValue(0);
+            saturation.setValue(0);
+            brightness.setValue(0);
+        }
+    }
+
+    private WritableImage imageViewSnapshot(ImageView view) {
+
+        Image image = view.getImage();
+        WritableImage writableImage = new WritableImage((int) image.getWidth(), (int) image.getHeight());
+        double width = view.getFitWidth();
+        double height = view.getFitHeight();
+        view.setFitWidth(image.getWidth());
+        view.setFitHeight(image.getHeight());
+        view.snapshot(null, writableImage);
+        view.setFitWidth(width);
+        view.setFitHeight(height);
+
+        return  writableImage;
     }
 }
