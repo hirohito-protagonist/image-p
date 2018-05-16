@@ -158,6 +158,16 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    private void binarizeAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
+            // TODO: define ui to manipulate low and high values.
+            imageView.setImage(ImageOperation.binarize(image, 100, 145));
+        }
+    }
+
+    @FXML
     private void applyEffectsAction(ActionEvent e) {
 
         Image image = imageView.getImage();

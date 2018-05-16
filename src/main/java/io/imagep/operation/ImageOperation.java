@@ -41,6 +41,11 @@ public class ImageOperation {
         return internalImageOperation(originalImage, ImageOperation::desaturatePixels);
     }
 
+    public static WritableImage binarize(@NotNull final Image originalImage, int low, int high) {
+
+        return internalImageOperation(originalImage, (pixels) -> ImageOperation.binarizePixels(pixels, low, high));
+    }
+
     private static WritableImage internalImageOperation(@NotNull final Image originalImage, Function<int[], int[]> pixelsTransformation) {
 
         int width = (int)originalImage.getWidth();
@@ -85,6 +90,25 @@ public class ImageOperation {
             int b = argb & 0xff;
             int color = (int) (0.299 * r + 0.587 * g + 0.114 * b);
             pixels[i] = (a << 24) | (color << 16) | (color << 8) | color;
+        }
+        return pixels;
+    }
+
+    /** Creates side effect on pixels collection */
+    public static int[] binarizePixels(@NotNull int[] pixels, int low, int high) {
+
+        int[] lut = new int[256];
+        for (int i = 0; i < lut.length; i++) {
+            lut[i] = i < low || i >= high ? 0 : 255;
+        }
+
+        for (int i = 0; i < pixels.length; i++) {
+            int argb = pixels[i];
+            int a = (argb >> 24) & 0xff;
+            int r = (argb >> 16) & 0xff;
+            int g = (argb >> 8) & 0xff;
+            int b = argb & 0xff;
+            pixels[i] = (a << 24) | (lut[r] << 16) | (lut[g] << 8) | lut[b];
         }
         return pixels;
     }
