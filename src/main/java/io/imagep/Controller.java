@@ -4,6 +4,7 @@ import io.imagep.operation.ImageOperation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.ColorAdjust;
@@ -37,7 +38,8 @@ public class Controller implements Initializable {
     private Slider zoom;
     @FXML
     private Label zoomInformation;
-
+    @FXML
+    private Button applyEffects;
 
     @FXML
     private void imageOpenAction(ActionEvent e) {
@@ -55,6 +57,11 @@ public class Controller implements Initializable {
             imageView.setFitHeight(image.getHeight());
             imageView.setImage(image);
             zoom.setDisable(false);
+            contrast.setDisable(false);
+            hue.setDisable(false);
+            saturation.setDisable(false);
+            brightness.setDisable(false);
+            applyEffects.setDisable(false);
         }
         dimensionLabel.setText(dimensionInformation(image));
     }
