@@ -170,7 +170,7 @@ public class Controller implements Initializable {
         Image image = imageView.getImage();
         if (image != null) {
             // TODO: define ui to manipulate low and high values.
-            imageView.setImage(ImageOperation.binarize(image, 100, 145));
+            imageView.setImage(ImageOperation.binarize(image, 127, 255));
         }
     }
 

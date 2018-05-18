@@ -108,7 +108,8 @@ public class ImageOperation {
             int r = (argb >> 16) & 0xff;
             int g = (argb >> 8) & 0xff;
             int b = argb & 0xff;
-            pixels[i] = (a << 24) | (lut[r] << 16) | (lut[g] << 8) | lut[b];
+            int color = (int) (0.2126 * r + 0.7152 * g + 0.0722 * b);
+            pixels[i] = (a << 24) | (lut[color] << 16) | (lut[color] << 8) | lut[color];
         }
         return pixels;
     }
