@@ -74,6 +74,60 @@ public class ImageOperationTest {
         });
     }
 
+    @org.junit.Test
+    public void saturatePixels() {
+
+        int[] pixels = new int[]{
+                argbToPixel(1, 255, 255, 255),
+                argbToPixel(1, 0, 0, 0),
+                argbToPixel(1, 125, 130 ,200),
+                argbToPixel(1, 244, 69, 139)
+        };
+
+        assertArrayEquals(ImageOperation.saturatePixels(pixels), new int[]{
+                argbToPixel(1, 255, 255, 255),
+                argbToPixel(1, 0, 0, 0),
+                argbToPixel(1, 92, 100, 200),
+                argbToPixel(1, 244, 0, 97)
+        });
+    }
+
+    @org.junit.Test
+    public void desaturatePixels() {
+
+        int[] pixels = new int[]{
+                argbToPixel(1, 255, 255, 255),
+                argbToPixel(1, 0, 0, 0),
+                argbToPixel(1, 125, 130 ,200),
+                argbToPixel(1, 244, 69, 139)
+        };
+
+        assertArrayEquals(ImageOperation.desaturatePixels(pixels), new int[]{
+                argbToPixel(1, 255, 255, 255),
+                argbToPixel(1, 0, 0, 0),
+                argbToPixel(1, 147, 151, 200),
+                argbToPixel(1, 244, 121, 170)
+        });
+    }
+
+    @org.junit.Test
+    public void binarizePixels() {
+
+        int[] pixels = new int[]{
+                argbToPixel(1, 255, 255, 255),
+                argbToPixel(1, 0, 0, 0),
+                argbToPixel(1, 125, 130 ,200),
+                argbToPixel(1, 244, 69, 139)
+        };
+
+        assertArrayEquals(ImageOperation.binarizePixels(pixels, 127, 255), new int[]{
+                argbToPixel(1, 255, 255, 255),
+                argbToPixel(1, 0, 0, 0),
+                argbToPixel(1, 255, 255, 255),
+                argbToPixel(1, 0, 0, 0)
+        });
+    }
+
     private int argbToPixel(int alpha, int red, int green, int blue) {
         return (alpha << 24) | (red << 16) | (green << 8) | blue;
     }
