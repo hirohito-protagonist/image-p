@@ -175,6 +175,15 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    private void posterizeAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
+            imageView.setImage(ImageOperation.posterize(image, 3));
+        }
+    }
+
+    @FXML
     private void applyEffectsAction(ActionEvent e) {
 
         Image image = imageView.getImage();

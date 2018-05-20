@@ -46,6 +46,11 @@ public class ImageOperation {
         return internalImageOperation(originalImage, (pixels) -> ImageOperation.binarizePixels(pixels, low, high));
     }
 
+    public static WritableImage posterize(@NotNull final Image originalImage, final int level) {
+
+        return internalImageOperation(originalImage, (pixels) -> ImageOperation.posterizePixels(pixels, level));
+    }
+
     private static WritableImage internalImageOperation(@NotNull final Image originalImage, Function<int[], int[]> pixelsTransformation) {
 
         int width = (int)originalImage.getWidth();
@@ -110,6 +115,25 @@ public class ImageOperation {
             int b = argb & 0xff;
             int color = (int) (0.2126 * r + 0.7152 * g + 0.0722 * b);
             pixels[i] = (a << 24) | (lut[color] << 16) | (lut[color] << 8) | lut[color];
+        }
+        return pixels;
+    }
+
+    /** Creates side effect on pixels collection */
+    public static int[] posterizePixels(@NotNull int[] pixels, final int level) {
+
+        int[] lut = new int[256];
+        for (int i = 0; i < lut.length; i++) {
+            lut[i] = 255 * (level * i / 256) / (level - 1);
+        }
+
+        for (int i = 0; i < pixels.length; i++) {
+            int argb = pixels[i];
+            int a = (argb >> 24) & 0xff;
+            int r = (argb >> 16) & 0xff;
+            int g = (argb >> 8) & 0xff;
+            int b = argb & 0xff;
+            pixels[i] = (a << 24) | (lut[r] << 16) | (lut[g] << 8) | lut[b];
         }
         return pixels;
     }

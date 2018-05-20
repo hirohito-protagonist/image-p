@@ -37,6 +37,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#saturateAction" text="Saturate" />
                   <MenuItem mnemonicParsing="false" onAction="#desaturateAction" text="Desaturate" />
                   <MenuItem mnemonicParsing="false" onAction="#binarizeAction" text="Binarize" />
+                  <MenuItem mnemonicParsing="false" onAction="#posterizeAction" text="Posterize" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
