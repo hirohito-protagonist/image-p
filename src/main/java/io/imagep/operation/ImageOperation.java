@@ -51,6 +51,11 @@ public class ImageOperation {
         return internalImageOperation(originalImage, (pixels) -> ImageOperation.posterizePixels(pixels, level));
     }
 
+    public static WritableImage gammaCorrection(@NotNull final Image originalImage, final double gamma) {
+
+        return internalImageOperation(originalImage, (pixels) -> ImageOperation.gammaPixels(pixels, gamma));
+    }
+
     private static WritableImage internalImageOperation(@NotNull final Image originalImage, Function<int[], int[]> pixelsTransformation) {
 
         int width = (int)originalImage.getWidth();
@@ -137,6 +142,26 @@ public class ImageOperation {
         }
         return pixels;
     }
+
+    /** Creates side effect on pixels collection */
+    public static int[] gammaPixels(@NotNull int[] pixels, final double gamma) {
+
+        int[] lut = new int[256];
+        for (int i = 0; i < lut.length; i++) {
+            lut[i] = (int)(255 * Math.pow(i / 255f, gamma));
+        }
+
+        for (int i = 0; i < pixels.length; i++) {
+            int argb = pixels[i];
+            int a = (argb >> 24) & 0xff;
+            int r = (argb >> 16) & 0xff;
+            int g = (argb >> 8) & 0xff;
+            int b = argb & 0xff;
+            pixels[i] = (a << 24) | (lut[r] << 16) | (lut[g] << 8) | lut[b];
+        }
+        return pixels;
+    }
+
 
     public static int[] darkerPixels(@NotNull int[] pixels) {
 
