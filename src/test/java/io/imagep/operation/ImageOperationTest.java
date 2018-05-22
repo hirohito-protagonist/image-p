@@ -78,17 +78,17 @@ public class ImageOperationTest {
     public void saturatePixels() {
 
         int[] pixels = new int[]{
-                argbToPixel(1, 255, 255, 255),
-                argbToPixel(1, 0, 0, 0),
-                argbToPixel(1, 125, 130 ,200),
-                argbToPixel(1, 244, 69, 139)
+            argbToPixel(1, 255, 255, 255),
+            argbToPixel(1, 0, 0, 0),
+            argbToPixel(1, 125, 130 ,200),
+            argbToPixel(1, 244, 69, 139)
         };
 
         assertArrayEquals(ImageOperation.saturatePixels(pixels), new int[]{
-                argbToPixel(1, 255, 255, 255),
-                argbToPixel(1, 0, 0, 0),
-                argbToPixel(1, 92, 100, 200),
-                argbToPixel(1, 244, 0, 97)
+            argbToPixel(1, 255, 255, 255),
+            argbToPixel(1, 0, 0, 0),
+            argbToPixel(1, 92, 100, 200),
+            argbToPixel(1, 244, 0, 97)
         });
     }
 
@@ -96,17 +96,17 @@ public class ImageOperationTest {
     public void desaturatePixels() {
 
         int[] pixels = new int[]{
-                argbToPixel(1, 255, 255, 255),
-                argbToPixel(1, 0, 0, 0),
-                argbToPixel(1, 125, 130 ,200),
-                argbToPixel(1, 244, 69, 139)
+            argbToPixel(1, 255, 255, 255),
+            argbToPixel(1, 0, 0, 0),
+            argbToPixel(1, 125, 130 ,200),
+            argbToPixel(1, 244, 69, 139)
         };
 
         assertArrayEquals(ImageOperation.desaturatePixels(pixels), new int[]{
-                argbToPixel(1, 255, 255, 255),
-                argbToPixel(1, 0, 0, 0),
-                argbToPixel(1, 147, 151, 200),
-                argbToPixel(1, 244, 121, 170)
+            argbToPixel(1, 255, 255, 255),
+            argbToPixel(1, 0, 0, 0),
+            argbToPixel(1, 147, 151, 200),
+            argbToPixel(1, 244, 121, 170)
         });
     }
 
@@ -114,17 +114,35 @@ public class ImageOperationTest {
     public void binarizePixels() {
 
         int[] pixels = new int[]{
-                argbToPixel(1, 255, 255, 255),
-                argbToPixel(1, 0, 0, 0),
-                argbToPixel(1, 125, 130 ,200),
-                argbToPixel(1, 244, 69, 139)
+            argbToPixel(1, 255, 255, 255),
+            argbToPixel(1, 0, 0, 0),
+            argbToPixel(1, 125, 130 ,200),
+            argbToPixel(1, 244, 69, 139)
         };
 
         assertArrayEquals(ImageOperation.binarizePixels(pixels, 127, 255), new int[]{
-                argbToPixel(1, 255, 255, 255),
-                argbToPixel(1, 0, 0, 0),
-                argbToPixel(1, 255, 255, 255),
-                argbToPixel(1, 0, 0, 0)
+            argbToPixel(1, 255, 255, 255),
+            argbToPixel(1, 0, 0, 0),
+            argbToPixel(1, 255, 255, 255),
+            argbToPixel(1, 0, 0, 0)
+        });
+    }
+
+    @org.junit.Test
+    public void gammaPixels() {
+
+        int[] pixels = new int[]{
+            argbToPixel(1, 255, 255, 255),
+            argbToPixel(1, 0, 0, 0),
+            argbToPixel(1, 125, 130 ,200),
+            argbToPixel(1, 244, 69, 139)
+        };
+
+        assertArrayEquals(ImageOperation.gammaPixels(pixels, 0.5), new int[]{
+            argbToPixel(1, 255, 255, 255),
+            argbToPixel(1, 0, 0, 0),
+            argbToPixel(1, 178, 182, 225),
+            argbToPixel(1, 249, 132, 188)
         });
     }
 
