@@ -56,6 +56,11 @@ public class ImageOperation {
         return internalImageOperation(originalImage, (pixels) -> ImageOperation.gammaPixels(pixels, gamma));
     }
 
+    public static WritableImage threshold(@NotNull final Image originalImage, final int thresh) {
+
+        return internalImageOperation(originalImage, (pixels) -> ImageOperation.thresholdPixels(pixels, thresh));
+    }
+
     private static WritableImage internalImageOperation(@NotNull final Image originalImage, Function<int[], int[]> pixelsTransformation) {
 
         int width = (int)originalImage.getWidth();
@@ -162,6 +167,31 @@ public class ImageOperation {
         return pixels;
     }
 
+    /** Creates side effect on pixels collection */
+    public static int[] thresholdPixels(@NotNull int[] pixels, final int thresh) {
+
+        int[] lut = new int[256];
+        int t = thresh;
+        if (thresh > 255) t = 255;
+        if (thresh < 0) t = 0;
+        for (int i = 0; i < t; i++) {
+            lut[i] = 0;
+        }
+        for (int i = t; i < lut.length; i++) {
+            lut[i] = 255;
+        }
+
+        for (int i = 0; i < pixels.length; i++) {
+            int argb = pixels[i];
+            int a = (argb >> 24) & 0xff;
+            int r = (argb >> 16) & 0xff;
+            int g = (argb >> 8) & 0xff;
+            int b = argb & 0xff;
+            int color = (int) (0.2126 * r + 0.7152 * g + 0.0722 * b);
+            pixels[i] = (a << 24) | (lut[color] << 16) | (lut[color] << 8) | lut[color];
+        }
+        return pixels;
+    }
 
     public static int[] darkerPixels(@NotNull int[] pixels) {
 

@@ -193,6 +193,15 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    private void thresholdAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
+            imageView.setImage(ImageOperation.threshold(image, 127));
+        }
+    }
+
+    @FXML
     private void applyEffectsAction(ActionEvent e) {
 
         Image image = imageView.getImage();
