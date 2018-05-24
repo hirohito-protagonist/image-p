@@ -146,6 +146,25 @@ public class ImageOperationTest {
         });
     }
 
+
+    @org.junit.Test
+    public void thresholdPixels() {
+
+        int[] pixels = new int[]{
+            argbToPixel(1, 255, 255, 255),
+            argbToPixel(1, 0, 0, 0),
+            argbToPixel(1, 125, 120 ,120),
+            argbToPixel(1, 244, 134, 139)
+        };
+
+        assertArrayEquals(ImageOperation.thresholdPixels(pixels, 134), new int[]{
+            argbToPixel(1, 255, 255, 255),
+            argbToPixel(1, 0, 0, 0),
+            argbToPixel(1, 0, 0, 0),
+            argbToPixel(1, 255, 255, 255)
+        });
+    }
+
     private int argbToPixel(int alpha, int red, int green, int blue) {
         return (alpha << 24) | (red << 16) | (green << 8) | blue;
     }
