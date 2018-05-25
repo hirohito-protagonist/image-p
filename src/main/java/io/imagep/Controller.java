@@ -4,6 +4,7 @@ import io.imagep.operation.ImageOperation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.AreaChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -40,6 +41,8 @@ public class Controller implements Initializable {
     private Label zoomInformation;
     @FXML
     private Button applyEffects;
+    @FXML
+    private AreaChart histogram;
 
     @FXML
     private void imageOpenAction(ActionEvent e) {
@@ -62,6 +65,9 @@ public class Controller implements Initializable {
             saturation.setDisable(false);
             brightness.setDisable(false);
             applyEffects.setDisable(false);
+            Histogram.rgb(imageView.getImage());
+            histogram.getData().clear();
+            histogram.getData().add(Histogram.rgb(imageView.getImage()));
         }
         dimensionLabel.setText(dimensionInformation(image));
     }
