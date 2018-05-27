@@ -65,9 +65,6 @@ public class Controller implements Initializable {
             saturation.setDisable(false);
             brightness.setDisable(false);
             applyEffects.setDisable(false);
-            Histogram.rgb(imageView.getImage());
-            histogram.getData().clear();
-            histogram.getData().add(Histogram.rgb(imageView.getImage()));
         }
         dimensionLabel.setText(dimensionInformation(image));
     }
@@ -83,6 +80,11 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         ColorAdjust colorAdjust = new ColorAdjust();
+
+        imageView.imageProperty().addListener((image) -> {
+            histogram.getData().clear();
+            histogram.getData().add(Histogram.rgb(imageView.getImage()));
+        });
 
         contrast.valueProperty().addListener((slider, prevValue, currentValue) -> {
             colorAdjust.setContrast((double)currentValue);
