@@ -69,7 +69,7 @@
                <children>
                   <VBox layoutX="38.0" layoutY="54.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AreaChart fx:id="histogram" alternativeRowFillVisible="false" animated="false" createSymbols="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                        <AreaChart fx:id="histogram" alternativeRowFillVisible="false" createSymbols="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>

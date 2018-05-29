@@ -34,3 +34,10 @@
 .scroll-bar > .decrement-button:pressed > .decrement-arrow {
     -fx-background-color: -fx-mark-highlight-color, rgb(255, 255, 255);
 }
+
+.default-color0.chart-series-area-line {
+    -fx-stroke: #949494;
+}
+.default-color0.chart-series-area-fill {
+    -fx-fill: #949494;
+}
