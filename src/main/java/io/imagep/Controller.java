@@ -3,7 +3,10 @@ package io.imagep;
 import io.imagep.operation.ImageOperation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,8 +17,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -177,8 +182,27 @@ public class Controller implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            // TODO: define ui to manipulate low and high values.
-            imageView.setImage(ImageOperation.binarize(image, 127, 255));
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/binarize.fxml"));
+                Parent root = loader.load();
+                BinarizeController binarizeController = loader.getController();
+                binarizeController.setImage(imageView.getImage());
+                Stage stage = new Stage();
+                stage.setTitle("Binarize operation");
+                stage.setScene(new Scene(root));
+                stage.show();
+                binarizeController.closeProperty.addListener((prop, prev, current) -> {
+                    if (current) {
+                        stage.close();
+                    }
+                });
+                binarizeController.imageProperty.addListener((prop, prev, current) -> {
+                    imageView.setImage(current);
+                    stage.close();
+                });
+            } catch (IOException ignore) {
+                ignore.printStackTrace();
+            }
         }
     }
 
