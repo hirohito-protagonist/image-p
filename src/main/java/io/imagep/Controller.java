@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -190,6 +191,8 @@ public class Controller implements Initializable {
                 Stage stage = new Stage();
                 stage.setTitle("Binarize operation");
                 stage.setScene(new Scene(root));
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setResizable(false);
                 stage.show();
                 binarizeController.closeProperty.addListener((prop, prev, current) -> {
                     if (current) {
