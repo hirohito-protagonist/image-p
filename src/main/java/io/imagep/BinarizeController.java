@@ -31,6 +31,8 @@ public class BinarizeController implements Initializable {
     @FXML
     private Button close;
 
+    private Image originalImage;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -45,7 +47,11 @@ public class BinarizeController implements Initializable {
 
     void setImage(Image image) {
         preview.setImage(ImageOperation.binarize(image, (int)low.getValue(), (int)high.getValue()));
-        imageProperty.set(image);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(248);
+        imageView.setPreserveRatio(true);
+        imageProperty.set(imageView.snapshot(null, null));
+        originalImage = image;
     }
 
     @FXML
@@ -55,7 +61,7 @@ public class BinarizeController implements Initializable {
 
     @FXML
     private void applyAction(ActionEvent e) {
-        imageProperty.set(ImageOperation.binarize(imageProperty.get(), (int)low.getValue(), (int)high.getValue()));
+        imageProperty.set(ImageOperation.binarize(originalImage, (int)low.getValue(), (int)high.getValue()));
         closeProperty.set(true);
     }
 }
