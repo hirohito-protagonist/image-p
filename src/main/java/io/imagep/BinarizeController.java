@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BinarizeController implements Initializable {
+public class BinarizeController implements Initializable, Dialog {
 
     SimpleBooleanProperty closeProperty = new SimpleBooleanProperty(false);
     SimpleObjectProperty<Image> imageProperty = new SimpleObjectProperty<>();
@@ -45,13 +45,24 @@ public class BinarizeController implements Initializable {
         });
     }
 
-    void setImage(Image image) {
+    @Override
+    public void setImage(Image image) {
         preview.setImage(ImageOperation.binarize(image, (int)low.getValue(), (int)high.getValue()));
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(248);
         imageView.setPreserveRatio(true);
         imageProperty.set(imageView.snapshot(null, null));
         originalImage = image;
+    }
+
+    @Override
+    public SimpleBooleanProperty closeProperty() {
+        return closeProperty;
+    }
+
+    @Override
+    public SimpleObjectProperty<Image> imageProperty() {
+        return imageProperty;
     }
 
     @FXML

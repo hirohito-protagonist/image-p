@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 
 public class Controller implements Initializable {
 
@@ -183,29 +184,7 @@ public class Controller implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/binarize.fxml"));
-                Parent root = loader.load();
-                BinarizeController binarizeController = loader.getController();
-                binarizeController.setImage(imageView.getImage());
-                Stage stage = new Stage();
-                stage.setTitle("Binarize operation");
-                stage.setScene(new Scene(root));
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setResizable(false);
-                stage.show();
-                binarizeController.closeProperty.addListener((prop, prev, current) -> {
-                    if (current) {
-                        stage.close();
-                    }
-                });
-                binarizeController.imageProperty.addListener((prop, prev, current) -> {
-                    imageView.setImage(current);
-                    stage.close();
-                });
-            } catch (IOException ignore) {
-                ignore.printStackTrace();
-            }
+            createDialog("/fxml/binarize.fxml", "Binarize operation");
         }
     }
 
@@ -232,29 +211,33 @@ public class Controller implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/threshold.fxml"));
-                Parent root = loader.load();
-                ThresholdController thresholdController = loader.getController();
-                thresholdController.setImage(imageView.getImage());
-                Stage stage = new Stage();
-                stage.setTitle("Threshold operation");
-                stage.setScene(new Scene(root));
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setResizable(false);
-                stage.show();
-                thresholdController.closeProperty.addListener((prop, prev, current) -> {
-                    if (current) {
-                        stage.close();
-                    }
-                });
-                thresholdController.imageProperty.addListener((prop, prev, current) -> {
-                    imageView.setImage(current);
+            createDialog("/fxml/threshold.fxml", "Threshold operation");
+        }
+    }
+
+    private void createDialog(String templatePath, String title) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(templatePath));
+            Parent root = loader.load();
+            Dialog dialog = loader.getController();
+            dialog.setImage(imageView.getImage());
+            Stage stage = new Stage();
+            stage.setTitle(title);
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.show();
+            dialog.closeProperty().addListener((prop, prev, current) -> {
+                if (current) {
                     stage.close();
-                });
-            } catch (IOException ignore) {
-                ignore.printStackTrace();
-            }
+                }
+            });
+            dialog.imageProperty().addListener((prop, prev, current) -> {
+                imageView.setImage(current);
+                stage.close();
+            });
+        } catch (IOException ignore) {
+            ignore.printStackTrace();
         }
     }
 
