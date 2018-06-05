@@ -193,7 +193,7 @@ public class Controller implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            imageView.setImage(ImageOperation.posterize(image, 3));
+            createDialog("/fxml/posterize.fxml", "Posterize operation");
         }
     }
 
