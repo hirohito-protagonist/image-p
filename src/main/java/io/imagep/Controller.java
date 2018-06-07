@@ -33,6 +33,8 @@ public class Controller implements Initializable {
     @FXML
     private ImageView imageView;
     @FXML
+    private ImageView previewImage;
+    @FXML
     private Label dimensionLabel;
     @FXML
     private Slider contrast;
@@ -88,6 +90,7 @@ public class Controller implements Initializable {
 
         ColorAdjust colorAdjust = new ColorAdjust();
 
+        previewImage.imageProperty().bind(imageView.imageProperty());
         imageView.imageProperty().addListener((image) -> {
             histogram.getData().clear();
             histogram.getData().add(Histogram.rgb(imageView.getImage()));

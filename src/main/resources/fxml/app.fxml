@@ -69,6 +69,7 @@
                <children>
                   <VBox layoutX="38.0" layoutY="54.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <ImageView fx:id="previewImage" fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
                         <AreaChart fx:id="histogram" alternativeRowFillVisible="false" createSymbols="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
