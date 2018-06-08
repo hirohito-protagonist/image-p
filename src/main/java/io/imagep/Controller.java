@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -29,7 +30,7 @@ import java.util.function.Function;
 public class Controller implements Initializable {
 
     @FXML
-    private BorderPane root;
+    private VBox root;
     @FXML
     private ImageView imageView;
     @FXML
