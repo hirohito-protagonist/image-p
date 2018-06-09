@@ -1,6 +1,6 @@
 package io.imagep.dialog;
 
-import io.imagep.operation.ImageOperation;
+import io.imagep.core.Color;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -37,17 +37,17 @@ public class BinarizeController implements Initializable, Dialog {
     public void initialize(URL location, ResourceBundle resources) {
 
         low.valueProperty().addListener((slider, prevValue, currentValue) -> {
-            preview.setImage(ImageOperation.binarize(imageProperty.get(), currentValue.intValue(), (int)high.getValue()));
+            preview.setImage(Color.binarize(imageProperty.get(), currentValue.intValue(), (int)high.getValue()));
         });
 
         high.valueProperty().addListener((slider, prevValue, currentValue) -> {
-            preview.setImage(ImageOperation.binarize(imageProperty.get(), (int)low.getValue(), currentValue.intValue()));
+            preview.setImage(Color.binarize(imageProperty.get(), (int)low.getValue(), currentValue.intValue()));
         });
     }
 
     @Override
     public void setImage(Image image) {
-        preview.setImage(ImageOperation.binarize(image, (int)low.getValue(), (int)high.getValue()));
+        preview.setImage(Color.binarize(image, (int)low.getValue(), (int)high.getValue()));
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(248);
         imageView.setPreserveRatio(true);
@@ -72,7 +72,7 @@ public class BinarizeController implements Initializable, Dialog {
 
     @FXML
     private void applyAction(ActionEvent e) {
-        imageProperty.set(ImageOperation.binarize(originalImage, (int)low.getValue(), (int)high.getValue()));
+        imageProperty.set(Color.binarize(originalImage, (int)low.getValue(), (int)high.getValue()));
         closeProperty.set(true);
     }
 }

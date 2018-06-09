@@ -1,6 +1,6 @@
 package io.imagep.dialog;
 
-import io.imagep.operation.ImageOperation;
+import io.imagep.core.Color;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -35,13 +35,13 @@ public class PosterizeController implements Initializable, Dialog {
     public void initialize(URL location, ResourceBundle resources) {
 
         posterize.valueProperty().addListener((slider, prevValue, currentValue) -> {
-            preview.setImage(ImageOperation.posterize(imageProperty.get(), currentValue.intValue()));
+            preview.setImage(Color.posterize(imageProperty.get(), currentValue.intValue()));
         });
     }
 
     @Override
     public void setImage(Image image) {
-        preview.setImage(ImageOperation.posterize(image, (int)posterize.getValue()));
+        preview.setImage(Color.posterize(image, (int)posterize.getValue()));
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(596);
         imageView.setPreserveRatio(true);
@@ -66,7 +66,7 @@ public class PosterizeController implements Initializable, Dialog {
 
     @FXML
     private void applyAction(ActionEvent e) {
-        imageProperty.set(ImageOperation.posterize(originalImage, (int)posterize.getValue()));
+        imageProperty.set(Color.posterize(originalImage, (int)posterize.getValue()));
         closeProperty.set(true);
     }
 }

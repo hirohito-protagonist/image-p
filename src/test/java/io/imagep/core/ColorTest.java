@@ -1,10 +1,8 @@
-package io.imagep.operation;
-
-import java.util.Arrays;
+package io.imagep.core;
 
 import static org.junit.Assert.*;
 
-public class ImageOperationTest {
+public class ColorTest {
 
     @org.junit.Test
     public void invertPixels() {
@@ -15,7 +13,7 @@ public class ImageOperationTest {
             argbToPixel(1, 125, 130 ,200),
             argbToPixel(1, 244, 69, 139)
         };
-        assertArrayEquals(ImageOperation.invertPixels(pixels), new int[]{
+        assertArrayEquals(Color.invertPixels(pixels), new int[]{
             argbToPixel(1, 0, 0, 0),
             argbToPixel(1, 255, 255, 255),
             argbToPixel(1, 130, 125, 55),
@@ -32,7 +30,7 @@ public class ImageOperationTest {
             argbToPixel(1, 125, 130 ,200),
             argbToPixel(1, 244, 69, 139)
         };
-        assertArrayEquals(ImageOperation.grayScalePixels(pixels), new int[]{
+        assertArrayEquals(Color.grayScalePixels(pixels), new int[]{
             argbToPixel(1, 255, 255, 255),
             argbToPixel(1, 0, 0, 0),
             argbToPixel(1, 136, 136, 136),
@@ -49,7 +47,7 @@ public class ImageOperationTest {
             argbToPixel(1, 125, 130 ,200),
             argbToPixel(1, 244, 69, 139)
         };
-        assertArrayEquals(ImageOperation.darkerPixels(pixels), new int[]{
+        assertArrayEquals(Color.darkerPixels(pixels), new int[]{
             argbToPixel(1, 178, 178, 178),
             argbToPixel(1, 0, 0, 0),
             argbToPixel(1, 87, 91, 140),
@@ -66,7 +64,7 @@ public class ImageOperationTest {
             argbToPixel(1, 125, 130 ,200),
             argbToPixel(1, 244, 69, 139)
         };
-        assertArrayEquals(ImageOperation.lightenPixels(pixels), new int[]{
+        assertArrayEquals(Color.lightenPixels(pixels), new int[]{
             argbToPixel(1, 255, 255, 255),
             argbToPixel(1, 18, 18, 18),
             argbToPixel(1, 159, 165, 255),
@@ -84,7 +82,7 @@ public class ImageOperationTest {
             argbToPixel(1, 244, 69, 139)
         };
 
-        assertArrayEquals(ImageOperation.saturatePixels(pixels), new int[]{
+        assertArrayEquals(Color.saturatePixels(pixels), new int[]{
             argbToPixel(1, 255, 255, 255),
             argbToPixel(1, 0, 0, 0),
             argbToPixel(1, 92, 100, 200),
@@ -102,7 +100,7 @@ public class ImageOperationTest {
             argbToPixel(1, 244, 69, 139)
         };
 
-        assertArrayEquals(ImageOperation.desaturatePixels(pixels), new int[]{
+        assertArrayEquals(Color.desaturatePixels(pixels), new int[]{
             argbToPixel(1, 255, 255, 255),
             argbToPixel(1, 0, 0, 0),
             argbToPixel(1, 147, 151, 200),
@@ -120,7 +118,7 @@ public class ImageOperationTest {
             argbToPixel(1, 244, 69, 139)
         };
 
-        assertArrayEquals(ImageOperation.binarizePixels(pixels, 127, 255), new int[]{
+        assertArrayEquals(Color.binarizePixels(pixels, 127, 255), new int[]{
             argbToPixel(1, 255, 255, 255),
             argbToPixel(1, 0, 0, 0),
             argbToPixel(1, 255, 255, 255),
@@ -138,7 +136,7 @@ public class ImageOperationTest {
             argbToPixel(1, 244, 69, 139)
         };
 
-        assertArrayEquals(ImageOperation.gammaPixels(pixels, 0.5), new int[]{
+        assertArrayEquals(Color.gammaPixels(pixels, 0.5), new int[]{
             argbToPixel(1, 255, 255, 255),
             argbToPixel(1, 0, 0, 0),
             argbToPixel(1, 178, 182, 225),
@@ -157,7 +155,7 @@ public class ImageOperationTest {
             argbToPixel(1, 244, 134, 139)
         };
 
-        assertArrayEquals(ImageOperation.thresholdPixels(pixels, 134), new int[]{
+        assertArrayEquals(Color.thresholdPixels(pixels, 134), new int[]{
             argbToPixel(1, 255, 255, 255),
             argbToPixel(1, 0, 0, 0),
             argbToPixel(1, 0, 0, 0),

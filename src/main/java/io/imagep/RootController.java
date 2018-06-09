@@ -1,7 +1,7 @@
 package io.imagep;
 
 import io.imagep.dialog.Dialog;
-import io.imagep.operation.ImageOperation;
+import io.imagep.core.Color;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -133,7 +133,7 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            imageView.setImage(ImageOperation.grayScale(image));
+            imageView.setImage(Color.grayScale(image));
         }
     }
 
@@ -142,7 +142,7 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            imageView.setImage(ImageOperation.invert(image));
+            imageView.setImage(Color.invert(image));
         }
     }
 
@@ -151,7 +151,7 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            imageView.setImage(ImageOperation.darker(image));
+            imageView.setImage(Color.darker(image));
         }
     }
 
@@ -160,7 +160,7 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            imageView.setImage(ImageOperation.lighten(image));
+            imageView.setImage(Color.lighten(image));
         }
     }
 
@@ -169,7 +169,7 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            imageView.setImage(ImageOperation.saturate(image));
+            imageView.setImage(Color.saturate(image));
         }
     }
 
@@ -178,7 +178,7 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            imageView.setImage(ImageOperation.desaturate(image));
+            imageView.setImage(Color.desaturate(image));
         }
     }
 
@@ -187,7 +187,7 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            createDialog("/fxml/binarize.fxml", "Binarize operation");
+            createDialog("/fxml/binarize.fxml", "Binarize core");
         }
     }
 
@@ -196,7 +196,7 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            createDialog("/fxml/posterize.fxml", "Posterize operation");
+            createDialog("/fxml/posterize.fxml", "Posterize core");
         }
     }
 
@@ -205,7 +205,7 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            imageView.setImage(ImageOperation.gammaCorrection(image, .5));
+            imageView.setImage(Color.gammaCorrection(image, .5));
         }
     }
 
@@ -214,7 +214,7 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            createDialog("/fxml/threshold.fxml", "Threshold operation");
+            createDialog("/fxml/threshold.fxml", "Threshold core");
         }
     }
 

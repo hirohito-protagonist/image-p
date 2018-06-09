@@ -1,6 +1,6 @@
 package io.imagep.dialog;
 
-import io.imagep.operation.ImageOperation;
+import io.imagep.core.Color;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -35,13 +35,13 @@ public class ThresholdController implements Initializable, Dialog {
     public void initialize(URL location, ResourceBundle resources) {
 
         thresh.valueProperty().addListener((slider, prevValue, currentValue) -> {
-            preview.setImage(ImageOperation.threshold(imageProperty.get(), currentValue.intValue()));
+            preview.setImage(Color.threshold(imageProperty.get(), currentValue.intValue()));
         });
     }
 
     @Override
     public void setImage(Image image) {
-        preview.setImage(ImageOperation.threshold(image, (int)thresh.getValue()));
+        preview.setImage(Color.threshold(image, (int)thresh.getValue()));
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(596);
         imageView.setPreserveRatio(true);
@@ -66,7 +66,7 @@ public class ThresholdController implements Initializable, Dialog {
 
     @FXML
     private void applyAction(ActionEvent e) {
-        imageProperty.set(ImageOperation.threshold(originalImage, (int)thresh.getValue()));
+        imageProperty.set(Color.threshold(originalImage, (int)thresh.getValue()));
         closeProperty.set(true);
     }
 }
