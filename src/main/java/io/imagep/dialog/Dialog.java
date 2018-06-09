@@ -1,4 +1,4 @@
-package io.imagep;
+package io.imagep.dialog;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;

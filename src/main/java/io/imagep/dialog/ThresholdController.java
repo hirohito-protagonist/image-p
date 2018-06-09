@@ -1,4 +1,4 @@
-package io.imagep;
+package io.imagep.dialog;
 
 import io.imagep.operation.ImageOperation;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BinarizeController implements Initializable, Dialog {
+public class ThresholdController implements Initializable, Dialog {
 
     SimpleBooleanProperty closeProperty = new SimpleBooleanProperty(false);
     SimpleObjectProperty<Image> imageProperty = new SimpleObjectProperty<>();
@@ -23,9 +23,7 @@ public class BinarizeController implements Initializable, Dialog {
     private ImageView preview;
 
     @FXML
-    private Slider high;
-    @FXML
-    private Slider low;
+    private Slider thresh;
     @FXML
     private Button apply;
     @FXML
@@ -36,20 +34,16 @@ public class BinarizeController implements Initializable, Dialog {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        low.valueProperty().addListener((slider, prevValue, currentValue) -> {
-            preview.setImage(ImageOperation.binarize(imageProperty.get(), currentValue.intValue(), (int)high.getValue()));
-        });
-
-        high.valueProperty().addListener((slider, prevValue, currentValue) -> {
-            preview.setImage(ImageOperation.binarize(imageProperty.get(), (int)low.getValue(), currentValue.intValue()));
+        thresh.valueProperty().addListener((slider, prevValue, currentValue) -> {
+            preview.setImage(ImageOperation.threshold(imageProperty.get(), currentValue.intValue()));
         });
     }
 
     @Override
     public void setImage(Image image) {
-        preview.setImage(ImageOperation.binarize(image, (int)low.getValue(), (int)high.getValue()));
+        preview.setImage(ImageOperation.threshold(image, (int)thresh.getValue()));
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(248);
+        imageView.setFitWidth(596);
         imageView.setPreserveRatio(true);
         imageProperty.set(imageView.snapshot(null, null));
         originalImage = image;
@@ -72,7 +66,7 @@ public class BinarizeController implements Initializable, Dialog {
 
     @FXML
     private void applyAction(ActionEvent e) {
-        imageProperty.set(ImageOperation.binarize(originalImage, (int)low.getValue(), (int)high.getValue()));
+        imageProperty.set(ImageOperation.threshold(originalImage, (int)thresh.getValue()));
         closeProperty.set(true);
     }
 }

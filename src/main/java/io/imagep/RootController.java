@@ -1,5 +1,6 @@
 package io.imagep;
 
+import io.imagep.dialog.Dialog;
 import io.imagep.operation.ImageOperation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +16,6 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -25,9 +25,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.Function;
 
-public class Controller implements Initializable {
+public class RootController implements Initializable {
 
     @FXML
     private VBox root;

@@ -1,4 +1,4 @@
-package io.imagep;
+package io.imagep.dialog;
 
 import io.imagep.operation.ImageOperation;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PosterizeController implements Initializable, Dialog {
+public class BinarizeController implements Initializable, Dialog {
 
     SimpleBooleanProperty closeProperty = new SimpleBooleanProperty(false);
     SimpleObjectProperty<Image> imageProperty = new SimpleObjectProperty<>();
@@ -23,7 +23,9 @@ public class PosterizeController implements Initializable, Dialog {
     private ImageView preview;
 
     @FXML
-    private Slider posterize;
+    private Slider high;
+    @FXML
+    private Slider low;
     @FXML
     private Button apply;
     @FXML
@@ -34,16 +36,20 @@ public class PosterizeController implements Initializable, Dialog {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        posterize.valueProperty().addListener((slider, prevValue, currentValue) -> {
-            preview.setImage(ImageOperation.posterize(imageProperty.get(), currentValue.intValue()));
+        low.valueProperty().addListener((slider, prevValue, currentValue) -> {
+            preview.setImage(ImageOperation.binarize(imageProperty.get(), currentValue.intValue(), (int)high.getValue()));
+        });
+
+        high.valueProperty().addListener((slider, prevValue, currentValue) -> {
+            preview.setImage(ImageOperation.binarize(imageProperty.get(), (int)low.getValue(), currentValue.intValue()));
         });
     }
 
     @Override
     public void setImage(Image image) {
-        preview.setImage(ImageOperation.posterize(image, (int)posterize.getValue()));
+        preview.setImage(ImageOperation.binarize(image, (int)low.getValue(), (int)high.getValue()));
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(596);
+        imageView.setFitWidth(248);
         imageView.setPreserveRatio(true);
         imageProperty.set(imageView.snapshot(null, null));
         originalImage = image;
@@ -66,7 +72,7 @@ public class PosterizeController implements Initializable, Dialog {
 
     @FXML
     private void applyAction(ActionEvent e) {
-        imageProperty.set(ImageOperation.posterize(originalImage, (int)posterize.getValue()));
+        imageProperty.set(ImageOperation.binarize(originalImage, (int)low.getValue(), (int)high.getValue()));
         closeProperty.set(true);
     }
 }
