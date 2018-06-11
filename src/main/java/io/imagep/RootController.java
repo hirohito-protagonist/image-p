@@ -52,6 +52,12 @@ public class RootController implements Initializable {
     private Button applyEffects;
     @FXML
     private AreaChart histogram;
+    @FXML
+    private AreaChart redHistogram;
+    @FXML
+    private AreaChart greenHistogram;
+    @FXML
+    private AreaChart blueHistogram;
 
     @FXML
     private void imageOpenAction(ActionEvent e) {
@@ -92,8 +98,10 @@ public class RootController implements Initializable {
 
         previewImage.imageProperty().bind(imageView.imageProperty());
         imageView.imageProperty().addListener((image) -> {
-            histogram.getData().clear();
-            histogram.getData().add(Histogram.rgb(imageView.getImage()));
+            histogram.getData().setAll(Histogram.rgb(imageView.getImage()));
+            redHistogram.getData().setAll(Histogram.red(imageView.getImage()));
+            greenHistogram.getData().setAll(Histogram.green(imageView.getImage()));
+            blueHistogram.getData().setAll(Histogram.blue(imageView.getImage()));
         });
 
         contrast.valueProperty().addListener((slider, prevValue, currentValue) -> {

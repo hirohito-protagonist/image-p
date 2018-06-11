@@ -81,6 +81,30 @@
                                         <NumberAxis side="LEFT" />
                                       </yAxis>
                                     </AreaChart>
+                                    <AreaChart fx:id="redHistogram" alternativeRowFillVisible="false" createSymbols="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="10.0" layoutY="40.0" legendVisible="false" prefHeight="150.0" prefWidth="280.0" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </AreaChart>
+                                    <AreaChart fx:id="greenHistogram" alternativeRowFillVisible="false" createSymbols="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="10.0" layoutY="190.0" legendVisible="false" prefHeight="150.0" prefWidth="280.0" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </AreaChart>
+                                    <AreaChart fx:id="blueHistogram" alternativeRowFillVisible="false" createSymbols="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="10.0" layoutY="340.0" legendVisible="false" prefHeight="150.0" prefWidth="280.0" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </AreaChart>
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
