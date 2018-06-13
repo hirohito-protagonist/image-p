@@ -96,6 +96,7 @@ public class RootController implements Initializable {
 
         ColorAdjust colorAdjust = new ColorAdjust();
 
+        previewImage.effectProperty().bind(imageView.effectProperty());
         previewImage.imageProperty().bind(imageView.imageProperty());
         imageView.imageProperty().addListener((image) -> {
             histogram.getData().setAll(Histogram.rgb(imageView.getImage()));
