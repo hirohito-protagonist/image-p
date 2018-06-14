@@ -25,7 +25,7 @@
    <children>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="FILE">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#imageOpenAction" text="Open">
                      <accelerator>
@@ -34,7 +34,7 @@
                   </MenuItem>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="EDIT">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#grayScaleAction" text="Grayscale" />
                   <MenuItem mnemonicParsing="false" onAction="#invertAction" text="Invert" />
@@ -48,7 +48,12 @@
                   <MenuItem mnemonicParsing="false" onAction="#thresholdAction" text="Threshold" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+            <Menu mnemonicParsing="false" text="FILTER">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#sepiaToneAction" text="Sepia" />
+               </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="HELP">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
             </items>

@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -224,6 +225,18 @@ public class RootController implements Initializable {
         Image image = imageView.getImage();
         if (image != null) {
             createDialog("/fxml/threshold.fxml", "Threshold core");
+        }
+    }
+
+    @FXML
+    private void sepiaToneAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
+            SepiaTone sepiaTone = new SepiaTone();
+            sepiaTone.setLevel(0.5d);
+            imageView.setEffect(sepiaTone);
+            imageView.setImage(imageViewSnapshot(imageView));
         }
     }
 
