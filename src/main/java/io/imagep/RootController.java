@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -239,6 +240,19 @@ public class RootController implements Initializable {
             imageView.setImage(imageViewSnapshot(imageView));
         }
     }
+
+    @FXML
+    private void gaussianBlurAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
+            GaussianBlur gaussianBlur = new GaussianBlur();
+            gaussianBlur.setRadius(8d);
+            imageView.setEffect(gaussianBlur);
+            imageView.setImage(imageViewSnapshot(imageView));
+        }
+    }
+
 
     private void createDialog(String templatePath, String title) {
         try {
