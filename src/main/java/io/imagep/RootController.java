@@ -216,7 +216,7 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            imageView.setImage(Color.gammaCorrection(image, .5));
+            createDialog("/fxml/gamma-correction.fxml", "Gamma correction");
         }
     }
 
