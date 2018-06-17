@@ -126,7 +126,7 @@
                <content>
                   <AnchorPane>
                      <children>
-                        <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" smooth="false" />
                      </children>
                   </AnchorPane>
                </content>
@@ -228,7 +228,7 @@
                     <Insets left="5.0" />
                  </padding>
               </Label>
-              <Slider fx:id="zoom" blockIncrement="0.1" disable="true" majorTickUnit="1.0" max="5.0" min="0.1" snapToTicks="true" value="1.0">
+              <Slider fx:id="zoom" blockIncrement="0.1" disable="true" majorTickUnit="1.0" max="5.0" min="0.1" value="1.0">
                  <padding>
                     <Insets left="5.0" />
                  </padding>
