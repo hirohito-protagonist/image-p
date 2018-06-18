@@ -234,10 +234,11 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
-            SepiaTone sepiaTone = new SepiaTone();
-            sepiaTone.setLevel(0.5d);
-            imageView.setEffect(sepiaTone);
-            imageView.setImage(imageViewSnapshot(imageView));
+//            SepiaTone sepiaTone = new SepiaTone();
+//            sepiaTone.setLevel(0.5d);
+//            imageView.setEffect(sepiaTone);
+//            imageView.setImage(imageViewSnapshot(imageView));
+            createDialog("/fxml/sepia.fxml", "Sepia");
         }
     }
 
