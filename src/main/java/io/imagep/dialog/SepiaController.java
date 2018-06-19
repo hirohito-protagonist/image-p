@@ -30,7 +30,6 @@ public class SepiaController implements Initializable, Dialog {
     public void initialize(URL location, ResourceBundle resources) {
 
         sepia.valueProperty().addListener((slider, prevValue, currentValue) -> {
-            System.out.println(currentValue.intValue() / 100d);
             sepiaTone.setLevel(currentValue.intValue() / 100d);
             preview.setEffect(sepiaTone);
         });

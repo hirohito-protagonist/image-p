@@ -35,13 +35,13 @@ public class GammaCorrectionController implements Initializable, Dialog {
     public void initialize(URL location, ResourceBundle resources) {
 
         gamma.valueProperty().addListener((slider, prevValue, currentValue) -> {
-            preview.setImage(Color.gammaCorrection(imageProperty.get(), currentValue.intValue() / 10));
+            preview.setImage(Color.gammaCorrection(imageProperty.get(), currentValue.intValue() / 100d));
         });
     }
 
     @Override
     public void setImage(Image image) {
-        preview.setImage(Color.gammaCorrection(image, (int)gamma.getValue() / 10));
+        preview.setImage(Color.gammaCorrection(image, (int)gamma.getValue() / 100d));
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(596);
         imageView.setPreserveRatio(true);
@@ -66,7 +66,7 @@ public class GammaCorrectionController implements Initializable, Dialog {
 
     @FXML
     private void applyAction(ActionEvent e) {
-        imageProperty.set(Color.gammaCorrection(originalImage, (int)gamma.getValue() / 10));
+        imageProperty.set(Color.gammaCorrection(originalImage, (int)gamma.getValue() / 100d));
         closeProperty.set(true);
     }
 }
