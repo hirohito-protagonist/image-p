@@ -98,6 +98,14 @@ public class RootController implements Initializable {
 
         ColorAdjust colorAdjust = new ColorAdjust();
 
+        histogram.getYAxis().setTickLabelsVisible(false);
+        histogram.getXAxis().setTickLabelsVisible(false);
+        redHistogram.getYAxis().setTickLabelsVisible(false);
+        redHistogram.getXAxis().setTickLabelsVisible(false);
+        blueHistogram.getYAxis().setTickLabelsVisible(false);
+        blueHistogram.getXAxis().setTickLabelsVisible(false);
+        greenHistogram.getYAxis().setTickLabelsVisible(false);
+        greenHistogram.getXAxis().setTickLabelsVisible(false);
         previewImage.effectProperty().bind(imageView.effectProperty());
         previewImage.imageProperty().bind(imageView.imageProperty());
         imageView.imageProperty().addListener((image) -> {
