@@ -34,7 +34,7 @@
          <children>
             <HBox>
                <children>
-                  <Slider fx:id="gamma" blockIncrement="1.0" min="1.0" showTickLabels="true" showTickMarks="true" value="50.0" HBox.hgrow="ALWAYS" />
+                  <Slider fx:id="gamma" blockIncrement="1.0" showTickLabels="true" showTickMarks="true" value="50.0" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
