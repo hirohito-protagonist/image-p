@@ -5,11 +5,13 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,16 +30,15 @@ public class BlurController implements Initializable, Dialog {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         blur.valueProperty().addListener((slider, prevValue, currentValue) -> {
-            gaussianBlur.setRadius(currentValue.intValue());
+            gaussianBlur.setRadius(currentValue.intValue() / 10);
             preview.setEffect(gaussianBlur);
         });
     }
 
     @Override
     public void setImage(Image image) {
-        gaussianBlur.setRadius(blur.getValue());
+        gaussianBlur.setRadius(blur.getValue() / 10);
         preview.setImage(image);
         preview.setEffect(gaussianBlur);
         ImageView imageView = new ImageView(image);
@@ -71,13 +72,13 @@ public class BlurController implements Initializable, Dialog {
 
         Image image = view.getImage();
         WritableImage writableImage = new WritableImage((int) image.getWidth(), (int) image.getHeight());
-        double width = view.getFitWidth();
-        double height = view.getFitHeight();
-        view.setFitWidth(image.getWidth());
-        view.setFitHeight(image.getHeight());
-        view.snapshot(null, writableImage);
-        view.setFitWidth(width);
-        view.setFitHeight(height);
+        ImageView imageView = new ImageView(image);
+        imageView.setEffect(gaussianBlur);
+        imageView.setFitWidth(image.getWidth());
+        imageView.setFitHeight(image.getHeight());
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+        imageView.snapshot(params, writableImage);
 
         return  writableImage;
     }
