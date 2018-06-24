@@ -1,5 +1,6 @@
 package io.imagep;
 
+import io.imagep.core.filter.Sobel;
 import io.imagep.dialog.Dialog;
 import io.imagep.core.Color;
 import javafx.event.ActionEvent;
@@ -198,6 +199,15 @@ public class RootController implements Initializable {
         Image image = imageView.getImage();
         if (image != null) {
             imageView.setImage(Color.desaturate(image));
+        }
+    }
+
+    @FXML
+    private void edgeDetectionAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
+            imageView.setImage(Sobel.apply(image));
         }
     }
 

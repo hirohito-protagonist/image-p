@@ -52,6 +52,7 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#sepiaToneAction" text="Sepia" />
                   <MenuItem mnemonicParsing="false" onAction="#gaussianBlurAction" text="Gaussian Blur" />
+                  <MenuItem mnemonicParsing="false" onAction="#edgeDetectionAction" text="Edge detection" />
                </items>
             </Menu>
           <Menu mnemonicParsing="false" text="HELP">
