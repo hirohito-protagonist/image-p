@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Slider;
-import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -20,7 +20,7 @@ public class BlurController implements Initializable, Dialog {
 
     SimpleBooleanProperty closeProperty = new SimpleBooleanProperty(false);
     SimpleObjectProperty<Image> imageProperty = new SimpleObjectProperty<>();
-    GaussianBlur gaussianBlur = new GaussianBlur();
+    BoxBlur boxBlur = new BoxBlur();
 
     @FXML
     private ImageView preview;
@@ -31,20 +31,20 @@ public class BlurController implements Initializable, Dialog {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         blur.valueProperty().addListener((slider, prevValue, currentValue) -> {
-            gaussianBlur.setRadius(currentValue.intValue() / 10);
-            preview.setEffect(gaussianBlur);
+            boxBlur.setWidth(currentValue.intValue());
+            boxBlur.setHeight(currentValue.intValue());
+            preview.setEffect(boxBlur);
         });
     }
 
     @Override
     public void setImage(Image image) {
-        gaussianBlur.setRadius(blur.getValue() / 10);
+        boxBlur.setWidth(blur.getValue());
+        boxBlur.setHeight(blur.getValue());
         preview.setImage(image);
-        preview.setEffect(gaussianBlur);
+        preview.setEffect(boxBlur);
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(596);
-        imageView.setPreserveRatio(true);
-        imageProperty.set(imageView.snapshot(null, null));
+        imageView.setPreserveRatio(true);;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class BlurController implements Initializable, Dialog {
         Image image = view.getImage();
         WritableImage writableImage = new WritableImage((int) image.getWidth(), (int) image.getHeight());
         ImageView imageView = new ImageView(image);
-        imageView.setEffect(gaussianBlur);
+        imageView.setEffect(boxBlur);
         imageView.setFitWidth(image.getWidth());
         imageView.setFitHeight(image.getHeight());
         SnapshotParameters params = new SnapshotParameters();
