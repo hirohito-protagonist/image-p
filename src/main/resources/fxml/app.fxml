@@ -51,7 +51,8 @@
             <Menu mnemonicParsing="false" text="FILTER">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#sepiaToneAction" text="Sepia" />
-                  <MenuItem mnemonicParsing="false" onAction="#gaussianBlurAction" text="Blur" />
+                  <MenuItem mnemonicParsing="false" onAction="#blurAction" text="Blur" />
+                  <MenuItem mnemonicParsing="false" onAction="#gaussianBlurAction" text="Gaussian blur" />
                   <MenuItem mnemonicParsing="false" onAction="#edgeDetectionAction" text="Edge detection" />
                </items>
             </Menu>

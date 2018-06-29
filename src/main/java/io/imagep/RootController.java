@@ -261,6 +261,15 @@ public class RootController implements Initializable {
 
         Image image = imageView.getImage();
         if (image != null) {
+            imageView.setImage(io.imagep.core.filter.GaussianBlur.apply(image, 100));
+        }
+    }
+
+    @FXML
+    private void blurAction(ActionEvent e) {
+
+        Image image = imageView.getImage();
+        if (image != null) {
             createDialog("/fxml/blur.fxml", "Blur");
         }
     }
