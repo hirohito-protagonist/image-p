@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class RootController implements Initializable {
@@ -151,127 +152,113 @@ public class RootController implements Initializable {
     @FXML
     private void grayScaleAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             imageView.setImage(Color.grayScale(image));
-        }
+        });
     }
 
     @FXML
     private void invertAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             imageView.setImage(Color.invert(image));
-        }
+        });
     }
 
     @FXML
     private void darkenAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             imageView.setImage(Color.darker(image));
-        }
+        });
     }
 
     @FXML
     private void lightenAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             imageView.setImage(Color.lighten(image));
-        }
+        });
     }
 
     @FXML
     private void saturateAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             imageView.setImage(Color.saturate(image));
-        }
+        });
     }
 
     @FXML
     private void desaturateAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             imageView.setImage(Color.desaturate(image));
-        }
+        });
     }
 
     @FXML
     private void edgeDetectionAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             imageView.setImage(Sobel.apply(image));
-        }
+        });
     }
 
     @FXML
     private void binarizeAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             createDialog("/fxml/binarize.fxml", "Binarize core");
-        }
+        });
     }
 
     @FXML
     private void posterizeAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             createDialog("/fxml/posterize.fxml", "Posterize core");
-        }
+        });
     }
 
     @FXML
     private void gammaCorrectionAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             createDialog("/fxml/gamma-correction.fxml", "Gamma correction");
-        }
+        });
     }
 
     @FXML
     private void thresholdAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             createDialog("/fxml/threshold.fxml", "Threshold core");
-        }
+        });
     }
 
     @FXML
     private void sepiaToneAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             createDialog("/fxml/sepia.fxml", "Sepia");
-        }
+        });
     }
 
     @FXML
     private void gaussianBlurAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             imageView.setImage(io.imagep.core.filter.GaussianBlur.apply(image, 100));
-        }
+        });
     }
 
     @FXML
     private void blurAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             createDialog("/fxml/blur.fxml", "Blur");
-        }
+        });
     }
 
 
@@ -304,14 +291,13 @@ public class RootController implements Initializable {
     @FXML
     private void applyEffectsAction(ActionEvent e) {
 
-        Image image = imageView.getImage();
-        if (image != null) {
+        getImage().ifPresent((image) -> {
             imageView.setImage(imageViewSnapshot(imageView));
             contrast.setValue(0);
             hue.setValue(0);
             saturation.setValue(0);
             brightness.setValue(0);
-        }
+        });
     }
 
     private WritableImage imageViewSnapshot(ImageView view) {
@@ -327,5 +313,10 @@ public class RootController implements Initializable {
         view.setFitHeight(height);
 
         return  writableImage;
+    }
+
+    private Optional<Image> getImage() {
+
+        return Optional.ofNullable(imageView.getImage());
     }
 }
