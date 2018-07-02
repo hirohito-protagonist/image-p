@@ -1,29 +1,21 @@
 package io.imagep.core.filter;
 
+import io.imagep.core.Utils;
 import javafx.scene.image.*;
-
-import java.nio.IntBuffer;
 
 public class BoxBlur {
 
-    public static WritableImage apply(Image image, int radius) {
+    public static Image apply(Image image, int radius) {
         int width = (int)image.getWidth();
         int height = (int)image.getHeight();
 
-        int[] inPixels = new int[width*height];
+        int[] inPixels = Utils.pixelsFromImage(image);
         int[] outPixels = new int[width*height];
-
-        PixelReader pixelReader = image.getPixelReader();
-        WritablePixelFormat<IntBuffer> pixelFormat = PixelFormat.getIntArgbInstance();
-        pixelReader.getPixels(0, 0, width, height, pixelFormat, inPixels, 0, width);
 
         BoxBlur.blur(inPixels, outPixels, width, height, radius);
         BoxBlur.blur(outPixels, inPixels, height, width, radius);
 
-        WritableImage outImage = new WritableImage(width, height);
-        PixelWriter pixelWriter = outImage.getPixelWriter();
-        pixelWriter.setPixels(0, 0, width, height, pixelFormat, inPixels, 0, width);
-        return outImage;
+        return Utils.createImageFromPixels(image, inPixels);
     }
 
     private static void blur(int[] in, int[] out, int width, int height, int radius) {

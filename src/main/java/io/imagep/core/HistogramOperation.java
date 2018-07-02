@@ -2,19 +2,11 @@ package io.imagep.core;
 
 import javafx.scene.image.*;
 
-import java.nio.IntBuffer;
-
 public class HistogramOperation {
 
-    public static WritableImage average(Image image) {
-        int width = (int)image.getWidth();
-        int height = (int)image.getHeight();
+    public static Image average(Image image) {
 
-        int[] inPixels = new int[width*height];
-
-        PixelReader pixelReader = image.getPixelReader();
-        WritablePixelFormat<IntBuffer> pixelFormat = PixelFormat.getIntArgbInstance();
-        pixelReader.getPixels(0, 0, width, height, pixelFormat, inPixels, 0, width);
+        int[] inPixels = Utils.pixelsFromImage(image);
 
 
         int[] h = HistogramOperation.collectRGBSeries(inPixels);
@@ -59,10 +51,7 @@ public class HistogramOperation {
             inPixels[i] = (a << 24) | (r << 16) | (g << 8) | b;
         }
 
-        WritableImage outImage = new WritableImage(width, height);
-        PixelWriter pixelWriter = outImage.getPixelWriter();
-        pixelWriter.setPixels(0, 0, width, height, pixelFormat, inPixels, 0, width);
-        return outImage;
+        return Utils.createImageFromPixels(image, inPixels);
     }
 
     private static int[] collectRGBSeries(int[] pixels) {

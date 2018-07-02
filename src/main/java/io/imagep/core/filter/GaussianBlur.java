@@ -1,31 +1,25 @@
 package io.imagep.core.filter;
 
+import io.imagep.core.Utils;
 import javafx.scene.image.*;
 
 import java.awt.image.Kernel;
-import java.nio.IntBuffer;
 
 public class GaussianBlur {
 
-    public static WritableImage apply(Image image, float radius) {
+    public static Image apply(Image image, float radius) {
         int width = (int)image.getWidth();
         int height = (int)image.getHeight();
 
-        int[] inPixels = new int[width*height];
+        int[] inPixels = Utils.pixelsFromImage(image);
         int[] outPixels = new int[width*height];
 
         Kernel kernel = GaussianBlur.kernel(radius);
-        PixelReader pixelReader = image.getPixelReader();
-        WritablePixelFormat<IntBuffer> pixelFormat = PixelFormat.getIntArgbInstance();
-        pixelReader.getPixels(0, 0, width, height, pixelFormat, inPixels, 0, width);
 
         GaussianBlur.blur(kernel, inPixels, outPixels, width, height);
         GaussianBlur.blur(kernel, outPixels, inPixels, height, width);
 
-        WritableImage outImage = new WritableImage(width, height);
-        PixelWriter pixelWriter = outImage.getPixelWriter();
-        pixelWriter.setPixels(0, 0, width, height, pixelFormat, inPixels, 0, width);
-        return outImage;
+        return Utils.createImageFromPixels(image, inPixels);
     }
 
     private static void blur(Kernel kernel, int[] in, int[] out, int width, int height) {

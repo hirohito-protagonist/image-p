@@ -1,5 +1,6 @@
 package io.imagep.core;
 
+import com.sun.deploy.ui.UITextArea;
 import com.sun.istack.internal.NotNull;
 import javafx.scene.image.*;
 
@@ -10,73 +11,61 @@ import java.util.function.Function;
 
 public class Color {
 
-    public static WritableImage grayScale(@NotNull final Image originalImage) {
+    public static Image grayScale(@NotNull final Image originalImage) {
 
         return Color.internalImageOperation(originalImage, Color::grayScalePixels);
     }
 
-    public static WritableImage invert(@NotNull final Image originalImage) {
+    public static Image invert(@NotNull final Image originalImage) {
 
         return internalImageOperation(originalImage, Color::invertPixels);
     }
 
-    public static WritableImage darker(@NotNull final Image originalImage) {
+    public static Image darker(@NotNull final Image originalImage) {
 
         return internalImageOperation(originalImage, Color::darkerPixels);
     }
 
-    public static WritableImage lighten(@NotNull final Image originalImage) {
+    public static Image lighten(@NotNull final Image originalImage) {
 
         return internalImageOperation(originalImage, Color::lightenPixels);
     }
 
-    public static WritableImage saturate(@NotNull final Image originalImage) {
+    public static Image saturate(@NotNull final Image originalImage) {
 
         return internalImageOperation(originalImage, Color::saturatePixels);
     }
 
-    public static WritableImage desaturate(@NotNull final Image originalImage) {
+    public static Image desaturate(@NotNull final Image originalImage) {
 
         return internalImageOperation(originalImage, Color::desaturatePixels);
     }
 
-    public static WritableImage binarize(@NotNull final Image originalImage, int low, int high) {
+    public static Image binarize(@NotNull final Image originalImage, int low, int high) {
 
         return internalImageOperation(originalImage, (pixels) -> Color.binarizePixels(pixels, low, high));
     }
 
-    public static WritableImage posterize(@NotNull final Image originalImage, final int level) {
+    public static Image posterize(@NotNull final Image originalImage, final int level) {
 
         return internalImageOperation(originalImage, (pixels) -> Color.posterizePixels(pixels, level));
     }
 
-    public static WritableImage gammaCorrection(@NotNull final Image originalImage, final double gamma) {
+    public static Image gammaCorrection(@NotNull final Image originalImage, final double gamma) {
 
         return internalImageOperation(originalImage, (pixels) -> Color.gammaPixels(pixels, gamma));
     }
 
-    public static WritableImage threshold(@NotNull final Image originalImage, final int thresh) {
+    public static Image threshold(@NotNull final Image originalImage, final int thresh) {
 
         return internalImageOperation(originalImage, (pixels) -> Color.thresholdPixels(pixels, thresh));
     }
 
-    private static WritableImage internalImageOperation(@NotNull final Image originalImage, Function<int[], int[]> pixelsTransformation) {
+    private static Image internalImageOperation(@NotNull final Image originalImage, Function<int[], int[]> pixelsTransformation) {
 
-        int width = (int)originalImage.getWidth();
-        int height = (int)originalImage.getHeight();
-
-        WritableImage image = new WritableImage(width, height);
-
-        PixelWriter pixelWriter = image.getPixelWriter();
-        PixelReader pixelReader = originalImage.getPixelReader();
-
-        int[] buffer = new int[width * height];
-        WritablePixelFormat<IntBuffer> pixelFormat = PixelFormat.getIntArgbInstance();
-        pixelReader.getPixels(0, 0, width, height, pixelFormat, buffer, 0, width);
+        int[] buffer = Utils.pixelsFromImage(originalImage);
         buffer = pixelsTransformation.apply(buffer);
-        pixelWriter.setPixels(0, 0, width, height, pixelFormat, buffer, 0, width);
-
-        return image;
+        return Utils.createImageFromPixels(originalImage, buffer);
     }
 
     /** Creates side effect on pixels collection */
