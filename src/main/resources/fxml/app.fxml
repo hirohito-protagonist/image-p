@@ -36,6 +36,11 @@
           </Menu>
           <Menu mnemonicParsing="false" text="EDIT">
             <items>
+                  <Menu mnemonicParsing="false" text="Histogram">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#histogramAverageAction" text="Average" />
+                    </items>
+                  </Menu>
               <MenuItem mnemonicParsing="false" onAction="#grayScaleAction" text="Grayscale" />
                   <MenuItem mnemonicParsing="false" onAction="#invertAction" text="Invert" />
                   <MenuItem mnemonicParsing="false" onAction="#darkenAction" text="Darker" />

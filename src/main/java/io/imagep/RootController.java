@@ -1,5 +1,6 @@
 package io.imagep;
 
+import io.imagep.core.HistogramOperation;
 import io.imagep.core.filter.Sobel;
 import io.imagep.dialog.Dialog;
 import io.imagep.core.Color;
@@ -194,6 +195,13 @@ public class RootController implements Initializable {
 
         getImage().ifPresent((image) -> {
             imageView.setImage(Color.desaturate(image));
+        });
+    }
+
+    @FXML
+    private void histogramAverageAction(ActionEvent e) {
+        getImage().ifPresent((image) -> {
+            imageView.setImage(HistogramOperation.average(image));
         });
     }
 
