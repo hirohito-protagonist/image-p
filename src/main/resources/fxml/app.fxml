@@ -59,6 +59,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#blurAction" text="Blur" />
                   <MenuItem mnemonicParsing="false" onAction="#gaussianBlurAction" text="Gaussian blur" />
                   <MenuItem mnemonicParsing="false" onAction="#edgeDetectionAction" text="Edge detection" />
+                  <MenuItem mnemonicParsing="false" onAction="#pixelizeAction" text="Pixelize" />
                </items>
             </Menu>
           <Menu mnemonicParsing="false" text="HELP">

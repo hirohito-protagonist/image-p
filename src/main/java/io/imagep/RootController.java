@@ -1,6 +1,7 @@
 package io.imagep;
 
 import io.imagep.core.HistogramOperation;
+import io.imagep.core.filter.Pixelize;
 import io.imagep.core.filter.Sobel;
 import io.imagep.dialog.Dialog;
 import io.imagep.core.Color;
@@ -15,8 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -210,6 +209,14 @@ public class RootController implements Initializable {
 
         getImage().ifPresent((image) -> {
             imageView.setImage(Sobel.apply(image));
+        });
+    }
+
+    @FXML
+    private void pixelizeAction(ActionEvent e) {
+
+        getImage().ifPresent((image) -> {
+            imageView.setImage(Pixelize.apply(image, 9));
         });
     }
 
