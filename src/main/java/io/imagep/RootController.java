@@ -84,6 +84,7 @@ public class RootController implements Initializable {
             saturation.setDisable(false);
             brightness.setDisable(false);
             applyEffects.setDisable(false);
+            zoom.setValue(1.0);
         }
         dimensionLabel.setText(dimensionInformation(image));
     }
