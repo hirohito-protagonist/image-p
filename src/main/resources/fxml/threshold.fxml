@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="533.0" prefWidth="628.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.imagep.dialog.ThresholdController">
+<AnchorPane prefHeight="566.0" prefWidth="628.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.imagep.dialog.ThresholdController">
    <children>
-      <VBox layoutX="20.0" layoutY="22.0" styleClass="c-pane" AnchorPane.bottomAnchor="119.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <VBox layoutX="20.0" layoutY="22.0" styleClass="c-pane" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <Label text="Preview">
                <font>
@@ -42,6 +42,6 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <Button layoutX="487.0" layoutY="492.0" mnemonicParsing="false" onAction="#closeAction" text="Cancel" AnchorPane.bottomAnchor="10.0" />
+      <Button layoutX="487.0" layoutY="492.0" mnemonicParsing="false" onAction="#closeAction" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="85.0" />
    </children>
 </AnchorPane>
