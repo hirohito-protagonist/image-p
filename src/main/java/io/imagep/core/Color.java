@@ -1,67 +1,64 @@
 package io.imagep.core;
 
-import com.sun.deploy.ui.UITextArea;
-import com.sun.istack.internal.NotNull;
 import javafx.scene.image.*;
 
-import java.nio.IntBuffer;
 import java.util.Arrays;
 import java.util.function.Function;
 
 
 public class Color {
 
-    public static Image grayScale(@NotNull final Image originalImage) {
+    public static Image grayScale(final Image originalImage) {
 
         return Color.internalImageOperation(originalImage, Color::grayScalePixels);
     }
 
-    public static Image invert(@NotNull final Image originalImage) {
+    public static Image invert(final Image originalImage) {
 
         return internalImageOperation(originalImage, Color::invertPixels);
     }
 
-    public static Image darker(@NotNull final Image originalImage) {
+    public static Image darker(final Image originalImage) {
 
         return internalImageOperation(originalImage, Color::darkerPixels);
     }
 
-    public static Image lighten(@NotNull final Image originalImage) {
+    public static Image lighten(final Image originalImage) {
 
         return internalImageOperation(originalImage, Color::lightenPixels);
     }
 
-    public static Image saturate(@NotNull final Image originalImage) {
+    public static Image saturate(final Image originalImage) {
 
         return internalImageOperation(originalImage, Color::saturatePixels);
     }
 
-    public static Image desaturate(@NotNull final Image originalImage) {
+    public static Image desaturate(final Image originalImage) {
 
         return internalImageOperation(originalImage, Color::desaturatePixels);
     }
 
-    public static Image binarize(@NotNull final Image originalImage, int low, int high) {
+    public static Image binarize(final Image originalImage, int low, int high) {
 
         return internalImageOperation(originalImage, (pixels) -> Color.binarizePixels(pixels, low, high));
     }
 
-    public static Image posterize(@NotNull final Image originalImage, final int level) {
+    public static Image posterize(final Image originalImage, final int level) {
 
         return internalImageOperation(originalImage, (pixels) -> Color.posterizePixels(pixels, level));
     }
 
-    public static Image gammaCorrection(@NotNull final Image originalImage, final double gamma) {
+    public static Image gammaCorrection(final Image originalImage, final double gamma) {
 
         return internalImageOperation(originalImage, (pixels) -> Color.gammaPixels(pixels, gamma));
     }
 
-    public static Image threshold(@NotNull final Image originalImage, final int thresh) {
+    public static Image threshold(final Image originalImage, final int thresh) {
 
         return internalImageOperation(originalImage, (pixels) -> Color.thresholdPixels(pixels, thresh));
     }
 
-    private static Image internalImageOperation(@NotNull final Image originalImage, Function<int[], int[]> pixelsTransformation) {
+    private static Image internalImageOperation(final Image originalImage, Function<int[], int[]> pixelsTransformation) {
 
         int[] buffer = Utils.pixelsFromImage(originalImage);
         buffer = pixelsTransformation.apply(buffer);
@@ -69,7 +66,7 @@ public class Color {
     }
 
     /** Creates side effect on pixels collection */
-    public static int[] invertPixels(@NotNull int[] pixels) {
+    public static int[] invertPixels(int[] pixels) {
 
         for (int i = 0; i < pixels.length; i++) {
             int argb = pixels[i];
@@ -83,7 +80,7 @@ public class Color {
     }
 
     /** Creates side effect on pixels collection */
-    public static int[] grayScalePixels(@NotNull int[] pixels) {
+    public static int[] grayScalePixels(int[] pixels) {
 
         for (int i = 0; i < pixels.length; i++) {
             int argb = pixels[i];
@@ -98,7 +95,7 @@ public class Color {
     }
 
     /** Creates side effect on pixels collection */
-    public static int[] binarizePixels(@NotNull int[] pixels, int low, int high) {
+    public static int[] binarizePixels(int[] pixels, int low, int high) {
 
         int[] lut = new int[256];
         for (int i = 0; i < lut.length; i++) {
@@ -118,7 +115,7 @@ public class Color {
     }
 
     /** Creates side effect on pixels collection */
-    public static int[] posterizePixels(@NotNull int[] pixels, final int level) {
+    public static int[] posterizePixels(int[] pixels, final int level) {
 
         int[] lut = new int[256];
         for (int i = 0; i < lut.length; i++) {
@@ -137,7 +134,7 @@ public class Color {
     }
 
     /** Creates side effect on pixels collection */
-    public static int[] gammaPixels(@NotNull int[] pixels, final double gamma) {
+    public static int[] gammaPixels(int[] pixels, final double gamma) {
 
         int[] lut = new int[256];
         for (int i = 0; i < lut.length; i++) {
@@ -156,7 +153,7 @@ public class Color {
     }
 
     /** Creates side effect on pixels collection */
-    public static int[] thresholdPixels(@NotNull int[] pixels, final int thresh) {
+    public static int[] thresholdPixels(int[] pixels, final int thresh) {
 
         int[] lut = new int[256];
         int t = thresh;
@@ -181,27 +178,27 @@ public class Color {
         return pixels;
     }
 
-    public static int[] darkerPixels(@NotNull int[] pixels) {
+    public static int[] darkerPixels(int[] pixels) {
 
         return Color.colorTransform(pixels, javafx.scene.paint.Color::darker);
     }
 
-    public static int[] lightenPixels(@NotNull int[] pixels) {
+    public static int[] lightenPixels(int[] pixels) {
 
         return Color.colorTransform(pixels, javafx.scene.paint.Color::brighter);
     }
 
-    public static int[] saturatePixels(@NotNull int[] pixels) {
+    public static int[] saturatePixels(int[] pixels) {
 
         return Color.colorTransform(pixels, javafx.scene.paint.Color::saturate);
     }
 
-    public static int[] desaturatePixels(@NotNull int[] pixels) {
+    public static int[] desaturatePixels(int[] pixels) {
 
         return Color.colorTransform(pixels, javafx.scene.paint.Color::desaturate);
     }
 
-    private static int[] colorTransform(@NotNull int[] pixels, Function<javafx.scene.paint.Color, javafx.scene.paint.Color> mapColor) {
+    private static int[] colorTransform(int[] pixels, Function<javafx.scene.paint.Color, javafx.scene.paint.Color> mapColor) {
 
         return Arrays.stream(pixels)
                 .parallel()
