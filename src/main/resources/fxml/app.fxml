@@ -198,6 +198,11 @@
                                     <Slider fx:id="saturation" blockIncrement="0.1" disable="true" majorTickUnit="0.25" max="1.0" min="-1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                                     <HBox alignment="TOP_RIGHT" prefWidth="200.0">
                                        <children>
+                                          <Button fx:id="resetEffects" disable="true" layoutX="206.0" layoutY="15.0" mnemonicParsing="false" onAction="#resetEffectsAction" text="Reset">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </Button>
                                           <Button fx:id="applyEffects" disable="true" mnemonicParsing="false" onAction="#applyEffectsAction" text="Apply" />
                                        </children>
                                        <opaqueInsets>

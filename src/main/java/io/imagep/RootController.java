@@ -55,6 +55,8 @@ public class RootController implements Initializable {
     @FXML
     private Button applyEffects;
     @FXML
+    private Button resetEffects;
+    @FXML
     private AreaChart histogram;
     @FXML
     private AreaChart redHistogram;
@@ -84,6 +86,7 @@ public class RootController implements Initializable {
             saturation.setDisable(false);
             brightness.setDisable(false);
             applyEffects.setDisable(false);
+            resetEffects.setDisable(false);
             zoom.setValue(1.0);
         }
         dimensionLabel.setText(dimensionInformation(image));
@@ -314,6 +317,15 @@ public class RootController implements Initializable {
             saturation.setValue(0);
             brightness.setValue(0);
         });
+    }
+
+    @FXML
+    private void resetEffectsAction(ActionEvent e) {
+
+        contrast.setValue(0);
+        hue.setValue(0);
+        saturation.setValue(0);
+        brightness.setValue(0);
     }
 
     private WritableImage imageViewSnapshot(ImageView view) {
