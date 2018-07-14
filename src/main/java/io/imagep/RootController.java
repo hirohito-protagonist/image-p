@@ -115,7 +115,12 @@ public class RootController implements Initializable {
         previewImage.effectProperty().bind(imageView.effectProperty());
         previewImage.imageProperty().bind(imageView.imageProperty());
         imageView.imageProperty().addListener((image) -> {
-            histogram.getData().setAll(Histogram.rgb(imageView.getImage()));
+            histogram.getData().setAll(
+                Histogram.rgb(imageView.getImage()),
+                Histogram.red(imageView.getImage()),
+                Histogram.green(imageView.getImage()),
+                Histogram.blue(imageView.getImage())
+            );
             redHistogram.getData().setAll(Histogram.red(imageView.getImage()));
             greenHistogram.getData().setAll(Histogram.green(imageView.getImage()));
             blueHistogram.getData().setAll(Histogram.blue(imageView.getImage()));

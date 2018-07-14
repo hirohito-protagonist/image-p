@@ -24,6 +24,27 @@
     -fx-fill: #949494;
 }
 
+.default-color1.chart-series-area-line {
+    -fx-stroke: red;
+}
+.default-color1.chart-series-area-fill {
+    -fx-fill: red;
+}
+
+.default-color2.chart-series-area-line {
+    -fx-stroke: green;
+}
+.default-color2.chart-series-area-fill {
+    -fx-fill: green;
+}
+
+.default-color3.chart-series-area-line {
+    -fx-stroke: blue;
+}
+.default-color3.chart-series-area-fill {
+    -fx-fill: blue;
+}
+
 .c-histogram-red .default-color0.chart-series-area-line {
     -fx-stroke: red;
 }
