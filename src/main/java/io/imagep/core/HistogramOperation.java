@@ -8,8 +8,7 @@ public class HistogramOperation {
 
         int[] inPixels = Utils.pixelsFromImage(image);
 
-
-        int[] h = HistogramOperation.collectRGBSeries(inPixels);
+        int[] h = Utils.collectRGBSeries(inPixels);
         int havg = 0;
         for (int i = 0; i < 256; i++) {
             havg += h[i];
@@ -52,27 +51,5 @@ public class HistogramOperation {
         }
 
         return Utils.createImageFromPixels(image, inPixels);
-    }
-
-    private static int[] collectRGBSeries(int[] pixels) {
-
-        int[] series = new int[256];
-        for (int i = 0; i < 256; i++) {
-            series[i] = 0;
-        }
-        for (int i = 0; i < pixels.length; i++) {
-            int argb = pixels[i];
-            int r = (argb >> 16) & 0xff;
-            int g = (argb >> 8) & 0xff;
-            int b = argb & 0xff;
-            if (r == g && r == b) {
-                series[r]++;
-            } else {
-                series[r]++;
-                series[g]++;
-                series[b]++;
-            }
-        }
-        return series;
     }
 }
