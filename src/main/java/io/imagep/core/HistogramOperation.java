@@ -2,24 +2,20 @@ package io.imagep.core;
 
 import javafx.scene.image.*;
 
+import java.util.Arrays;
+
 public class HistogramOperation {
 
     public static Image average(Image image) {
 
         int[] inPixels = Utils.pixelsFromImage(image);
-
         int[] h = Utils.collectRGBSeries(inPixels);
-        int havg = 0;
-        for (int i = 0; i < 256; i++) {
-            havg += h[i];
-        }
-        havg /= 256;
+        double havg = Arrays.stream(h).average().orElseGet(() -> 0.0);
 
         int R = 0;
         int Hint = 0;
         int[] left = new int[256];
         int[] right = new int[256];
-        int[] new_ = new int[256];
         for (int i = 0; i < 256; i++) {
             left[i] = R;
             Hint += h[i];
@@ -31,9 +27,7 @@ public class HistogramOperation {
             right[i] = R;
         }
 
-
-        for (int i = 0; i < inPixels.length; i++) {
-            int argb = inPixels[i];
+        return Utils.createImageFromPixels(image, Arrays.stream(inPixels).parallel().map((argb) -> {
             int a = (argb >> 24) & 0xff;
             int r = (argb >> 16) & 0xff;
             int g = (argb >> 8) & 0xff;
@@ -47,9 +41,7 @@ public class HistogramOperation {
             if (left[b] == right[b]) {
                 b = left[b];
             }
-            inPixels[i] = (a << 24) | (r << 16) | (g << 8) | b;
-        }
-
-        return Utils.createImageFromPixels(image, inPixels);
+            return (a << 24) | (r << 16) | (g << 8) | b;
+        }).toArray());
     }
 }
