@@ -106,17 +106,32 @@ public class RootController implements Initializable {
 
         histogram.getYAxis().setTickLabelsVisible(false);
         histogram.getXAxis().setTickLabelsVisible(false);
+        histogram.getXAxis().setTickMarkVisible(false);
+        histogram.getYAxis().setTickMarkVisible(false);
+        histogram.getYAxis().setTickLength(0);
+        histogram.getXAxis().setTickLength(0);
         redHistogram.getYAxis().setTickLabelsVisible(false);
         redHistogram.getXAxis().setTickLabelsVisible(false);
-        blueHistogram.getYAxis().setTickLabelsVisible(false);
-        blueHistogram.getXAxis().setTickLabelsVisible(false);
+        redHistogram.getXAxis().setTickMarkVisible(false);
+        redHistogram.getYAxis().setTickMarkVisible(false);
+        redHistogram.getYAxis().setTickLength(0);
+        redHistogram.getXAxis().setTickLength(0);
         greenHistogram.getYAxis().setTickLabelsVisible(false);
         greenHistogram.getXAxis().setTickLabelsVisible(false);
+        greenHistogram.getXAxis().setTickMarkVisible(false);
+        greenHistogram.getYAxis().setTickMarkVisible(false);
+        greenHistogram.getYAxis().setTickLength(0);
+        greenHistogram.getXAxis().setTickLength(0);
+        blueHistogram.getYAxis().setTickLabelsVisible(false);
+        blueHistogram.getXAxis().setTickLabelsVisible(false);
+        blueHistogram.getXAxis().setTickMarkVisible(false);
+        blueHistogram.getYAxis().setTickMarkVisible(false);
+        blueHistogram.getYAxis().setTickLength(0);
+        blueHistogram.getXAxis().setTickLength(0);
         previewImage.effectProperty().bind(imageView.effectProperty());
         previewImage.imageProperty().bind(imageView.imageProperty());
         imageView.imageProperty().addListener((image) -> {
             histogram.getData().setAll(
-                Histogram.rgb(imageView.getImage()),
                 Histogram.red(imageView.getImage()),
                 Histogram.green(imageView.getImage()),
                 Histogram.blue(imageView.getImage())
