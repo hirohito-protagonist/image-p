@@ -229,6 +229,13 @@ public class RootController implements Initializable {
     }
 
     @FXML
+    private void histogramRandomAction(ActionEvent e) {
+        getImage().ifPresent((image) -> {
+            imageView.setImage(HistogramOperation.random(image));
+        });
+    }
+
+    @FXML
     private void edgeDetectionAction(ActionEvent e) {
 
         getImage().ifPresent((image) -> {
