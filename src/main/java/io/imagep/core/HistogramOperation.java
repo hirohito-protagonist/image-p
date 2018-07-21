@@ -51,8 +51,7 @@ public class HistogramOperation {
         int[] pixels = Utils.pixelsFromImage(image);
         int[] h = Utils.collectRGBSeries(pixels);
 
-        double havg = Arrays.stream(h).average().orElseGet(() -> 0.0);;
-        havg /= 256;
+        int havg = Arrays.stream(h).sum() / 256;
 
         int R = 0;
         int Hint = 0;
