@@ -97,4 +97,46 @@ public class HistogramOperation {
             return (a << 24) | (r << 16) | (g << 8) | b;
         }).toArray());
     }
+
+    public static Image stretch(Image image) {
+
+        int[] pixels = Utils.pixelsFromImage(image);
+        int maxRed = 0;
+        int maxGreen = 0;
+        int maxBlue = 0;
+        int minRed = 255;
+        int minGreen = 255;
+        int minBlue = 255;
+
+        for (int pixel: pixels) {
+            int r = (pixel >> 16) & 0xff;
+            int g = (pixel >> 8) & 0xff;
+            int b = pixel & 0xff;
+            if (r > maxRed) maxRed = r;
+            if (g > maxGreen) maxGreen = g;
+            if (b > maxBlue) maxBlue = b;
+            if (r < minRed) minRed = r;
+            if (g < minGreen) minGreen = g;
+            if (b < minBlue) minBlue = b;
+        }
+
+        int[] lutRed = new int[256];
+        int[] lutGreen = new int[256];
+        int[] lutBlue = new int[256];
+
+        for (int i = 0; i < 256; i++) {
+            lutRed[i] = (255 / (maxRed - minRed) * (i - minRed));
+            lutGreen[i] = (255 / (maxGreen - minGreen) * (i - minGreen));
+            lutBlue[i] = (255 / (maxBlue - minBlue) * (i - minBlue));
+        }
+
+        return Utils.createImageFromPixels(image, Arrays.stream(pixels).parallel().map((argb) -> {
+            int a = (argb >> 24) & 0xff;
+            int r = (argb >> 16) & 0xff;
+            int g = (argb >> 8) & 0xff;
+            int b = argb & 0xff;
+
+            return (a << 24) | (lutRed[r] << 16) | (lutGreen[g] << 8) | lutBlue[b];
+        }).toArray());
+    }
 }
