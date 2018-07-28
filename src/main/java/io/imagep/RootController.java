@@ -9,11 +9,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -172,52 +174,31 @@ public class RootController implements Initializable {
         });
     }
 
-
     @FXML
-    private void grayScaleAction(ActionEvent e) {
-
+    private void menuItemImageAction(ActionEvent e) {
+        MenuItem node = (MenuItem) e.getSource();
+        String operationType = (String) node.getUserData();
         getImage().ifPresent((image) -> {
-            imageView.setImage(Color.grayScale(image));
-        });
-    }
-
-    @FXML
-    private void invertAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            imageView.setImage(Color.invert(image));
-        });
-    }
-
-    @FXML
-    private void darkenAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            imageView.setImage(Color.darker(image));
-        });
-    }
-
-    @FXML
-    private void lightenAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            imageView.setImage(Color.lighten(image));
-        });
-    }
-
-    @FXML
-    private void saturateAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            imageView.setImage(Color.saturate(image));
-        });
-    }
-
-    @FXML
-    private void desaturateAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            imageView.setImage(Color.desaturate(image));
+            switch (operationType) {
+                case "invert":
+                    imageView.setImage(Color.invert(image));
+                    break;
+                case "grayscale":
+                    imageView.setImage(Color.grayScale(image));
+                    break;
+                case "darken":
+                    imageView.setImage(Color.darker(image));
+                    break;
+                case "lighten":
+                    imageView.setImage(Color.lighten(image));
+                    break;
+                case "saturate":
+                    imageView.setImage(Color.saturate(image));
+                    break;
+                case "desaturate":
+                    imageView.setImage(Color.desaturate(image));
+                    break;
+            }
         });
     }
 

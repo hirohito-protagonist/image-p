@@ -43,12 +43,12 @@
                         <MenuItem mnemonicParsing="false" onAction="#histogramStretchAction" text="Stretch" />
                     </items>
                   </Menu>
-              <MenuItem mnemonicParsing="false" onAction="#grayScaleAction" text="Grayscale" />
-                  <MenuItem mnemonicParsing="false" onAction="#invertAction" text="Invert" />
-                  <MenuItem mnemonicParsing="false" onAction="#darkenAction" text="Darker" />
-                  <MenuItem mnemonicParsing="false" onAction="#lightenAction" text="Brighter" />
-                  <MenuItem mnemonicParsing="false" onAction="#saturateAction" text="Saturate" />
-                  <MenuItem mnemonicParsing="false" onAction="#desaturateAction" text="Desaturate" />
+              <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Grayscale" userData="grayscale" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Invert" userData="invert" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Darker" userData="darken" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Brighter" userData="lighten" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Saturate" userData="saturate" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Desaturate" userData="desaturate" />
                   <MenuItem mnemonicParsing="false" onAction="#binarizeAction" text="Binarize" />
                   <MenuItem mnemonicParsing="false" onAction="#posterizeAction" text="Posterize" />
                   <MenuItem mnemonicParsing="false" onAction="#gammaCorrectionAction" text="Gamma Correction" />
