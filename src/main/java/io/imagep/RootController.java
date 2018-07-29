@@ -198,44 +198,25 @@ public class RootController implements Initializable {
                 case "desaturate":
                     imageView.setImage(Color.desaturate(image));
                     break;
+                case "histogramAverage":
+                    imageView.setImage(HistogramOperation.average(image));
+                    break;
+                case "histogramRandom":
+                    imageView.setImage(HistogramOperation.random(image));
+                    break;
+                case "histogramStretch":
+                    imageView.setImage(HistogramOperation.stretch(image));
+                    break;
+                case "edgeDetection":
+                    imageView.setImage(Sobel.apply(image));
+                    break;
+                case "pixelize":
+                    imageView.setImage(Pixelize.apply(image, 9));
+                    break;
+                case "blur":
+                    imageView.setImage(io.imagep.core.filter.GaussianBlur.apply(image, 100));
+                    break;
             }
-        });
-    }
-
-    @FXML
-    private void histogramAverageAction(ActionEvent e) {
-        getImage().ifPresent((image) -> {
-            imageView.setImage(HistogramOperation.average(image));
-        });
-    }
-
-    @FXML
-    private void histogramRandomAction(ActionEvent e) {
-        getImage().ifPresent((image) -> {
-            imageView.setImage(HistogramOperation.random(image));
-        });
-    }
-
-    @FXML
-    private void histogramStretchAction(ActionEvent e) {
-        getImage().ifPresent((image) -> {
-            imageView.setImage(HistogramOperation.stretch(image));
-        });
-    }
-
-    @FXML
-    private void edgeDetectionAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            imageView.setImage(Sobel.apply(image));
-        });
-    }
-
-    @FXML
-    private void pixelizeAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            imageView.setImage(Pixelize.apply(image, 9));
         });
     }
 
@@ -276,14 +257,6 @@ public class RootController implements Initializable {
 
         getImage().ifPresent((image) -> {
             createDialog("/fxml/sepia.fxml", "Sepia");
-        });
-    }
-
-    @FXML
-    private void gaussianBlurAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            imageView.setImage(io.imagep.core.filter.GaussianBlur.apply(image, 100));
         });
     }
 
