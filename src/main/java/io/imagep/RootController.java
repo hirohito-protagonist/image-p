@@ -213,61 +213,30 @@ public class RootController implements Initializable {
                 case "pixelize":
                     imageView.setImage(Pixelize.apply(image, 9));
                     break;
-                case "blur":
+                case "blurGaussian":
                     imageView.setImage(io.imagep.core.filter.GaussianBlur.apply(image, 100));
+                    break;
+                case "binarize":
+                    createDialog("/fxml/binarize.fxml", "Binarize core");
+                    break;
+                case "posterize":
+                    createDialog("/fxml/posterize.fxml", "Posterize core");
+                    break;
+                case "treshold":
+                    createDialog("/fxml/threshold.fxml", "Threshold core");
+                    break;
+                case "gammaCorrection":
+                    createDialog("/fxml/gamma-correction.fxml", "Gamma correction");
+                    break;
+                case "sepia":
+                    createDialog("/fxml/sepia.fxml", "Sepia");
+                    break;
+                case "blur":
+                    createDialog("/fxml/blur.fxml", "Blur");
                     break;
             }
         });
     }
-
-    @FXML
-    private void binarizeAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            createDialog("/fxml/binarize.fxml", "Binarize core");
-        });
-    }
-
-    @FXML
-    private void posterizeAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            createDialog("/fxml/posterize.fxml", "Posterize core");
-        });
-    }
-
-    @FXML
-    private void gammaCorrectionAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            createDialog("/fxml/gamma-correction.fxml", "Gamma correction");
-        });
-    }
-
-    @FXML
-    private void thresholdAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            createDialog("/fxml/threshold.fxml", "Threshold core");
-        });
-    }
-
-    @FXML
-    private void sepiaToneAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            createDialog("/fxml/sepia.fxml", "Sepia");
-        });
-    }
-
-    @FXML
-    private void blurAction(ActionEvent e) {
-
-        getImage().ifPresent((image) -> {
-            createDialog("/fxml/blur.fxml", "Blur");
-        });
-    }
-
 
     private void createDialog(String templatePath, String title) {
         try {

@@ -49,17 +49,17 @@
                   <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Brighter" userData="lighten" />
                   <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Saturate" userData="saturate" />
                   <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Desaturate" userData="desaturate" />
-                  <MenuItem mnemonicParsing="false" onAction="#binarizeAction" text="Binarize" />
-                  <MenuItem mnemonicParsing="false" onAction="#posterizeAction" text="Posterize" />
-                  <MenuItem mnemonicParsing="false" onAction="#gammaCorrectionAction" text="Gamma Correction" />
-                  <MenuItem mnemonicParsing="false" onAction="#thresholdAction" text="Threshold" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Binarize" userData="binarize" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Posterize" userData="posterize" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Gamma Correction" userData="gammaCorrection" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Threshold" userData="treshold" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="FILTER">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#sepiaToneAction" text="Sepia" />
-                  <MenuItem mnemonicParsing="false" onAction="#blurAction" text="Blur" />
-                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Gaussian blur" userData="blur" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Sepia" userData="sepia" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Blur" userData="blur" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Gaussian blur" userData="blurGaussian" />
                   <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Edge detection" userData="edgeDetection" />
                   <MenuItem mnemonicParsing="false" onAction="#menuItemImageAction" text="Pixelize" userData="pixelize" />
                </items>
