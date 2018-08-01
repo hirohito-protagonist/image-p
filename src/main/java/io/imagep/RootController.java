@@ -5,6 +5,7 @@ import io.imagep.core.filter.Pixelize;
 import io.imagep.core.filter.Sobel;
 import io.imagep.dialog.Dialog;
 import io.imagep.core.Color;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -92,6 +94,30 @@ public class RootController implements Initializable {
             zoom.setValue(1.0);
         }
         dimensionLabel.setText(dimensionInformation(image));
+    }
+
+    @FXML
+    private void imageSaveAsAction() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Image As");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.jpe", "*.bmp")
+        );
+        String[] extensions = ImageIO.getReaderFileSuffixes();
+        File file = fileChooser.showSaveDialog(root.getScene().getWindow());
+        if (file != null && imageView.getImage() != null) {
+            String fileName = file.getName();
+            for (String extension: extensions) {
+                if (fileName.contains(extension)) {
+                    try {
+                        ImageIO.write(SwingFXUtils.fromFXImage(imageView.getImage(),
+                                null), extension, file);
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }
+            }
+        }
     }
 
 
