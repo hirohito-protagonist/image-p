@@ -10,7 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
@@ -31,6 +30,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -98,26 +98,28 @@ public class RootController implements Initializable {
 
     @FXML
     private void imageSaveAsAction() {
+        String[] extensions = ImageIO.getWriterFileSuffixes();
+        String[] filterExtension = Arrays.stream(extensions).map((v) -> "*." + v).toArray(String[]::new);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Image As");
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.jpe", "*.bmp")
+            new FileChooser.ExtensionFilter("Image Files", filterExtension)
         );
-        String[] extensions = ImageIO.getReaderFileSuffixes();
-        File file = fileChooser.showSaveDialog(root.getScene().getWindow());
-        if (file != null && imageView.getImage() != null) {
-            String fileName = file.getName();
-            for (String extension: extensions) {
-                if (fileName.contains(extension)) {
+        Optional<File> file = Optional.ofNullable(fileChooser.showSaveDialog(root.getScene().getWindow()));
+        Optional<Image> image = Optional.ofNullable(imageView.getImage());
+        file.ifPresent((f) -> {
+            image.ifPresent((i) -> {
+                String fileName = f.getName();
+                Arrays.stream(extensions).filter(fileName::contains).forEach((extension) -> {
                     try {
-                        ImageIO.write(SwingFXUtils.fromFXImage(imageView.getImage(),
-                                null), extension, file);
+                        System.out.println(extension);
+                        ImageIO.write(SwingFXUtils.fromFXImage(i, null), extension, f);
                     } catch (IOException ex) {
                         System.out.println(ex.getMessage());
                     }
-                }
-            }
-        }
+                });
+            });
+        });
     }
 
 
