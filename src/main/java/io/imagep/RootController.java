@@ -71,16 +71,19 @@ public class RootController implements Initializable {
 
     @FXML
     private void imageOpenAction(ActionEvent e) {
-
+        String[] fileSuffixes = ImageIO.getReaderFileSuffixes();
+        String[] fileExtensions = Arrays.stream(fileSuffixes).map((v) -> "*." + v).toArray(String[]::new);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image");
         fileChooser.getExtensionFilters().add(
-            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.jpe", "*.bmp")
+            new FileChooser.ExtensionFilter("Image Files", fileExtensions)
         );
-        File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
-        Image image = null;
-        if (selectedFile != null) {
-            image = new Image("file:" + selectedFile.getAbsolutePath());
+
+        dimensionLabel.setText(dimensionInformation(null));
+
+        Optional<File> selectedFile = Optional.ofNullable(fileChooser.showOpenDialog(root.getScene().getWindow()));
+        selectedFile.ifPresent((file) -> {
+            Image image = new Image("file:" + file.getAbsolutePath());
             imageView.setFitWidth(image.getWidth());
             imageView.setFitHeight(image.getHeight());
             imageView.setImage(image);
@@ -92,8 +95,8 @@ public class RootController implements Initializable {
             applyEffects.setDisable(false);
             resetEffects.setDisable(false);
             zoom.setValue(1.0);
-        }
-        dimensionLabel.setText(dimensionInformation(image));
+            dimensionLabel.setText(dimensionInformation(image));
+        });
     }
 
     @FXML
