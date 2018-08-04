@@ -102,12 +102,14 @@ public class RootController implements Initializable {
     @FXML
     private void imageSaveAsAction() {
         String[] extensions = ImageIO.getWriterFileSuffixes();
-        String[] filterExtension = Arrays.stream(extensions).map((v) -> "*." + v).toArray(String[]::new);
+        String[] fileExtensions = Arrays.stream(extensions).map((v) -> "*." + v).toArray(String[]::new);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Image As");
-        fileChooser.getExtensionFilters().add(
-            new FileChooser.ExtensionFilter("Image Files", filterExtension)
-        );
+        Arrays.stream(fileExtensions).forEach((e) -> {
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter(e, e)
+            );
+        });
         Optional<File> file = Optional.ofNullable(fileChooser.showSaveDialog(root.getScene().getWindow()));
         Optional<Image> image = Optional.ofNullable(imageView.getImage());
         file.ifPresent((f) -> {
@@ -115,7 +117,6 @@ public class RootController implements Initializable {
                 String fileName = f.getName();
                 Arrays.stream(extensions).filter(fileName::contains).forEach((extension) -> {
                     try {
-                        System.out.println(extension);
                         ImageIO.write(SwingFXUtils.fromFXImage(i, null), extension, f);
                     } catch (IOException ex) {
                         System.out.println(ex.getMessage());
