@@ -111,9 +111,8 @@ public class RootController implements Initializable {
             );
         });
         Optional<File> file = Optional.ofNullable(fileChooser.showSaveDialog(root.getScene().getWindow()));
-        Optional<Image> image = Optional.ofNullable(imageView.getImage());
         file.ifPresent((f) -> {
-            image.ifPresent((i) -> {
+            getImage().ifPresent((i) -> {
                 String fileName = f.getName();
                 Arrays.stream(extensions).filter(fileName::contains).forEach((extension) -> {
                     try {
@@ -164,15 +163,17 @@ public class RootController implements Initializable {
         blueHistogram.getXAxis().setTickLength(0);
         previewImage.effectProperty().bind(imageView.effectProperty());
         previewImage.imageProperty().bind(imageView.imageProperty());
-        imageView.imageProperty().addListener((image) -> {
-            histogram.getData().setAll(
-                Histogram.red(imageView.getImage()),
-                Histogram.green(imageView.getImage()),
-                Histogram.blue(imageView.getImage())
-            );
-            redHistogram.getData().setAll(Histogram.red(imageView.getImage()));
-            greenHistogram.getData().setAll(Histogram.green(imageView.getImage()));
-            blueHistogram.getData().setAll(Histogram.blue(imageView.getImage()));
+        imageView.imageProperty().addListener((img) -> {
+            getImage().ifPresent((image) -> {
+                histogram.getData().setAll(
+                    Histogram.red(image),
+                    Histogram.green(image),
+                    Histogram.blue(image)
+                );
+                redHistogram.getData().setAll(Histogram.red(image));
+                greenHistogram.getData().setAll(Histogram.green(image));
+                blueHistogram.getData().setAll(Histogram.blue(image));
+            });
         });
 
         contrast.valueProperty().addListener((slider, prevValue, currentValue) -> {
@@ -196,13 +197,14 @@ public class RootController implements Initializable {
         });
 
         zoom.valueProperty().addListener((slider, prevValue, currentValue) -> {
-            Image image = imageView.getImage();
-            double scale = (double) currentValue;
-            double w = image.getWidth() * scale;
-            double h = image.getHeight() * scale;
-            imageView.setFitWidth(w);
-            imageView.setFitHeight(h);
-            zoomInformation.setText((int)(scale * 100) + "%");
+            getImage().ifPresent((image) -> {
+                double scale = (double) currentValue;
+                double w = image.getWidth() * scale;
+                double h = image.getHeight() * scale;
+                imageView.setFitWidth(w);
+                imageView.setFitHeight(h);
+                zoomInformation.setText((int)(scale * 100) + "%");
+            });
         });
     }
 
