@@ -30,9 +30,8 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.function.Function;
 
 public class RootController implements Initializable {
 
@@ -213,37 +212,12 @@ public class RootController implements Initializable {
         MenuItem node = (MenuItem) e.getSource();
         String operationType = (String) node.getUserData();
         getImage().ifPresent((image) -> {
+
+            Map<String, Function<Image, Image>> operations = unaryImageOperation();
+            if (operations.containsKey(operationType)) {
+                imageView.setImage(operations.get(operationType).apply(image));
+            }
             switch (operationType) {
-                case "invert":
-                    imageView.setImage(Color.invert(image));
-                    break;
-                case "grayscale":
-                    imageView.setImage(Color.grayScale(image));
-                    break;
-                case "darken":
-                    imageView.setImage(Color.darker(image));
-                    break;
-                case "lighten":
-                    imageView.setImage(Color.lighten(image));
-                    break;
-                case "saturate":
-                    imageView.setImage(Color.saturate(image));
-                    break;
-                case "desaturate":
-                    imageView.setImage(Color.desaturate(image));
-                    break;
-                case "histogramAverage":
-                    imageView.setImage(HistogramOperation.average(image));
-                    break;
-                case "histogramRandom":
-                    imageView.setImage(HistogramOperation.random(image));
-                    break;
-                case "histogramStretch":
-                    imageView.setImage(HistogramOperation.stretch(image));
-                    break;
-                case "edgeDetection":
-                    imageView.setImage(Sobel.apply(image));
-                    break;
                 case "pixelize":
                     imageView.setImage(Pixelize.apply(image, 9));
                     break;
@@ -270,6 +244,23 @@ public class RootController implements Initializable {
                     break;
             }
         });
+    }
+
+    private Map<String, Function<Image, Image>> unaryImageOperation() {
+
+        Map<String, Function<Image, Image>> operations = new HashMap<>();
+
+        operations.putIfAbsent("invert", Color::invert);
+        operations.putIfAbsent("grayscale", Color::grayScale);
+        operations.putIfAbsent("darken", Color::darker);
+        operations.putIfAbsent("lighten", Color::lighten);
+        operations.putIfAbsent("saturate", Color::saturate);
+        operations.putIfAbsent("desaturate", Color::desaturate);
+        operations.putIfAbsent("histogramAverage", HistogramOperation::average);
+        operations.putIfAbsent("histogramRandom", HistogramOperation::random);
+        operations.putIfAbsent("histogramStretch", HistogramOperation::stretch);
+        operations.putIfAbsent("edgeDetection", Sobel::apply);
+        return operations;
     }
 
     private void createDialog(String templatePath, String title) {
