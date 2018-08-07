@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class RootController implements Initializable {
@@ -217,6 +218,10 @@ public class RootController implements Initializable {
             if (operations.containsKey(operationType)) {
                 imageView.setImage(operations.get(operationType).apply(image));
             }
+            Map<String, Consumer<Void>> dialogs = imageDialogs();
+            if (dialogs.containsKey(operationType)) {
+                dialogs.get(operationType).accept(null);
+            }
             switch (operationType) {
                 case "pixelize":
                     imageView.setImage(Pixelize.apply(image, 9));
@@ -224,26 +229,22 @@ public class RootController implements Initializable {
                 case "blurGaussian":
                     imageView.setImage(io.imagep.core.filter.GaussianBlur.apply(image, 100));
                     break;
-                case "binarize":
-                    createDialog("/fxml/binarize.fxml", "Binarize core");
-                    break;
-                case "posterize":
-                    createDialog("/fxml/posterize.fxml", "Posterize core");
-                    break;
-                case "treshold":
-                    createDialog("/fxml/threshold.fxml", "Threshold core");
-                    break;
-                case "gammaCorrection":
-                    createDialog("/fxml/gamma-correction.fxml", "Gamma correction");
-                    break;
-                case "sepia":
-                    createDialog("/fxml/sepia.fxml", "Sepia");
-                    break;
-                case "blur":
-                    createDialog("/fxml/blur.fxml", "Blur");
-                    break;
             }
         });
+    }
+
+
+    private Map<String, Consumer<Void>> imageDialogs() {
+
+        Map<String, Consumer<Void>> dialogs = new HashMap<>();
+
+        dialogs.putIfAbsent("binarize", (e) -> createDialog("/fxml/binarize.fxml", "Binarize core"));
+        dialogs.putIfAbsent("posterize", (e) -> createDialog("/fxml/posterize.fxml", "Posterize core"));
+        dialogs.putIfAbsent("treshold", (e) -> createDialog("/fxml/threshold.fxml", "Threshold core"));
+        dialogs.putIfAbsent("gammaCorrection", (e) -> createDialog("/fxml/gamma-correction.fxml", "Gamma correction"));
+        dialogs.putIfAbsent("sepia", (e) -> createDialog("/fxml/sepia.fxml", "Sepia"));
+        dialogs.putIfAbsent("blur", (e) -> createDialog("/fxml/blur.fxml", "Blur"));
+        return dialogs;
     }
 
     private Map<String, Function<Image, Image>> unaryImageOperation() {
