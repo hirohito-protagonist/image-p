@@ -4,6 +4,7 @@ import javafx.scene.image.*;
 
 import java.util.Arrays;
 import java.util.function.Function;
+import java.util.stream.IntStream;
 
 
 public class Color {
@@ -65,91 +66,69 @@ public class Color {
         return Utils.createImageFromPixels(originalImage, buffer);
     }
 
-    /** Creates side effect on pixels collection */
-    public static int[] invertPixels(int[] pixels) {
 
-        for (int i = 0; i < pixels.length; i++) {
-            int argb = pixels[i];
-            int a = (argb >> 24) & 0xff;
-            int r = (argb >> 16) & 0xff;
-            int g = (argb >> 8) & 0xff;
-            int b = argb & 0xff;
-            pixels[i] = (a << 24) | ((255 - r) << 16) | ((255 - g) << 8) | (255 - b);
-        }
-        return pixels;
+    static int[] invertPixels(int[] pixels) {
+
+       return Arrays.stream(pixels).map((argb) -> {
+           int a = (argb >> 24) & 0xff;
+           int r = (argb >> 16) & 0xff;
+           int g = (argb >> 8) & 0xff;
+           int b = argb & 0xff;
+           return (a << 24) | ((255 - r) << 16) | ((255 - g) << 8) | (255 - b);
+       }).toArray();
     }
 
-    /** Creates side effect on pixels collection */
-    public static int[] grayScalePixels(int[] pixels) {
+    static int[] grayScalePixels(int[] pixels) {
 
-        for (int i = 0; i < pixels.length; i++) {
-            int argb = pixels[i];
+        return Arrays.stream(pixels).map((argb) -> {
             int a = (argb >> 24) & 0xff;
             int r = (argb >> 16) & 0xff;
             int g = (argb >> 8) & 0xff;
             int b = argb & 0xff;
             int color = (int) (0.299 * r + 0.587 * g + 0.114 * b);
-            pixels[i] = (a << 24) | (color << 16) | (color << 8) | color;
-        }
-        return pixels;
+            return (a << 24) | (color << 16) | (color << 8) | color;
+        }).toArray();
     }
 
-    /** Creates side effect on pixels collection */
-    public static int[] binarizePixels(int[] pixels, int low, int high) {
+    static int[] binarizePixels(int[] pixels, int low, int high) {
 
-        int[] lut = new int[256];
-        for (int i = 0; i < lut.length; i++) {
-            lut[i] = i < low || i >= high ? 0 : 255;
-        }
+        int[] lut = IntStream.range(0, 256).map((i) -> i < low || i >= high ? 0 : 255).toArray();
 
-        for (int i = 0; i < pixels.length; i++) {
-            int argb = pixels[i];
+        return Arrays.stream(pixels).map((argb) -> {
             int a = (argb >> 24) & 0xff;
             int r = (argb >> 16) & 0xff;
             int g = (argb >> 8) & 0xff;
             int b = argb & 0xff;
             int color = (int) (0.2126 * r + 0.7152 * g + 0.0722 * b);
-            pixels[i] = (a << 24) | (lut[color] << 16) | (lut[color] << 8) | lut[color];
-        }
-        return pixels;
+            return (a << 24) | (lut[color] << 16) | (lut[color] << 8) | lut[color];
+        }).toArray();
     }
 
-    /** Creates side effect on pixels collection */
-    public static int[] posterizePixels(int[] pixels, final int level) {
+    static int[] posterizePixels(int[] pixels, final int level) {
 
-        int[] lut = new int[256];
-        for (int i = 0; i < lut.length; i++) {
-            lut[i] = 255 * (level * i / 256) / (level - 1);
-        }
+        int[] lut = IntStream.range(0, 256).map((i) -> 255 * (level * i / 256) / (level - 1)).toArray();
 
-        for (int i = 0; i < pixels.length; i++) {
-            int argb = pixels[i];
+        return Arrays.stream(pixels).map((argb) -> {
             int a = (argb >> 24) & 0xff;
             int r = (argb >> 16) & 0xff;
             int g = (argb >> 8) & 0xff;
             int b = argb & 0xff;
-            pixels[i] = (a << 24) | (lut[r] << 16) | (lut[g] << 8) | lut[b];
-        }
-        return pixels;
+            return (a << 24) | (lut[r] << 16) | (lut[g] << 8) | lut[b];
+        }).toArray();
     }
 
-    /** Creates side effect on pixels collection */
-    public static int[] gammaPixels(int[] pixels, final double gamma) {
 
-        int[] lut = new int[256];
-        for (int i = 0; i < lut.length; i++) {
-            lut[i] = (int)(255 * Math.pow(i / 255f, gamma));
-        }
+    static int[] gammaPixels(int[] pixels, final double gamma) {
 
-        for (int i = 0; i < pixels.length; i++) {
-            int argb = pixels[i];
+        int[] lut = IntStream.range(0, 256).map((i) -> (int)(255 * Math.pow(i / 255f, gamma))).toArray();
+
+        return Arrays.stream(pixels).map((argb) -> {
             int a = (argb >> 24) & 0xff;
             int r = (argb >> 16) & 0xff;
             int g = (argb >> 8) & 0xff;
             int b = argb & 0xff;
-            pixels[i] = (a << 24) | (lut[r] << 16) | (lut[g] << 8) | lut[b];
-        }
-        return pixels;
+            return (a << 24) | (lut[r] << 16) | (lut[g] << 8) | lut[b];
+        }).toArray();
     }
 
     /** Creates side effect on pixels collection */
