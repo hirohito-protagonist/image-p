@@ -131,8 +131,8 @@ public class Color {
         }).toArray();
     }
 
-    /** Creates side effect on pixels collection */
-    public static int[] thresholdPixels(int[] pixels, final int thresh) {
+
+    static int[] thresholdPixels(int[] pixels, final int thresh) {
 
         int[] lut = new int[256];
         int t = thresh;
@@ -145,34 +145,32 @@ public class Color {
             lut[i] = 255;
         }
 
-        for (int i = 0; i < pixels.length; i++) {
-            int argb = pixels[i];
+        return Arrays.stream(pixels).map((argb) -> {
             int a = (argb >> 24) & 0xff;
             int r = (argb >> 16) & 0xff;
             int g = (argb >> 8) & 0xff;
             int b = argb & 0xff;
             int color = (int) (0.2126 * r + 0.7152 * g + 0.0722 * b);
-            pixels[i] = (a << 24) | (lut[color] << 16) | (lut[color] << 8) | lut[color];
-        }
-        return pixels;
+            return (a << 24) | (lut[color] << 16) | (lut[color] << 8) | lut[color];
+        }).toArray();
     }
 
-    public static int[] darkerPixels(int[] pixels) {
+    static int[] darkerPixels(int[] pixels) {
 
         return Color.colorTransform(pixels, javafx.scene.paint.Color::darker);
     }
 
-    public static int[] lightenPixels(int[] pixels) {
+    static int[] lightenPixels(int[] pixels) {
 
         return Color.colorTransform(pixels, javafx.scene.paint.Color::brighter);
     }
 
-    public static int[] saturatePixels(int[] pixels) {
+    static int[] saturatePixels(int[] pixels) {
 
         return Color.colorTransform(pixels, javafx.scene.paint.Color::saturate);
     }
 
-    public static int[] desaturatePixels(int[] pixels) {
+    static int[] desaturatePixels(int[] pixels) {
 
         return Color.colorTransform(pixels, javafx.scene.paint.Color::desaturate);
     }
