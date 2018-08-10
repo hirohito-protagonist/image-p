@@ -134,16 +134,8 @@ public class Color {
 
     static int[] thresholdPixels(int[] pixels, final int thresh) {
 
-        int[] lut = new int[256];
-        int t = thresh;
-        if (thresh > 255) t = 255;
-        if (thresh < 0) t = 0;
-        for (int i = 0; i < t; i++) {
-            lut[i] = 0;
-        }
-        for (int i = t; i < lut.length; i++) {
-            lut[i] = 255;
-        }
+        final int t = thresh > 255 ? 255 : thresh < 0 ? 0 : thresh;
+        int[] lut = IntStream.range(0, 256).map((i) -> i < t ? 0: 255).toArray();
 
         return Arrays.stream(pixels).map((argb) -> {
             int a = (argb >> 24) & 0xff;
