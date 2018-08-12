@@ -68,3 +68,55 @@
 .c-pane {
 	-fx-background-color: -imagep-base-light;
 }
+
+.menu-bar {
+    -fx-background-color: -imagep-base;
+}
+
+.menu-bar > .container > .menu-button {
+    -fx-background-color: -imagep-base;
+}
+
+.menu-bar > .container > .menu-button > .label {
+    -fx-text-fill: white;
+}
+
+.menu-bar > .container > .menu-button > .label:disabled {
+    -fx-opacity: 1.0;
+}
+
+.menu-bar > .container > .menu-button:hover,
+.menu-bar > .container > .menu-button:focused,
+.menu-bar > .container > .menu-button:showing {
+    -fx-background-color: -imagep-base-light;
+}
+
+.menu-bar > .container > .menu-button:hover > .label,
+.menu-bar > .container > .menu-button:focused > .label,
+.menu-bar > .container > .menu-button:showing > .label {
+    -fx-text-fill: white;
+}
+
+.menu-item {
+    -fx-background-color: -imagep-base;
+}
+
+.menu-item .label {
+    -fx-text-fill: white;
+}
+
+.menu-item .label:disabled {
+    -fx-opacity: 1.0;
+}
+
+.menu-item:focused, .menu-item:hovered {
+    -fx-background-color: -imagep-base-light;
+}
+
+.menu-item:focused .label, .menu-item:hovered .label {
+    -fx-text-fill: white;
+}
+
+.context-menu {
+    -fx-background-color: -imagep-base;
+}
