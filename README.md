@@ -4,6 +4,7 @@ An image manipulation program
 ![](/docs/screenshots/interface.png)
 
 # Features
+- open/save images in: png, jpg, jpeg, bmp
 - contrast
 - hue
 - brightness
