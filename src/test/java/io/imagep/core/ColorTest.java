@@ -1,11 +1,13 @@
 package io.imagep.core;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class ColorTest {
 
-    @org.junit.Test
-    public void invertPixels() {
+    @Test
+    public void testInvertPixels() {
 
         int[] pixels = new int[]{
             argbToPixel(1, 255, 255, 255),
@@ -21,8 +23,8 @@ public class ColorTest {
         });
     }
 
-    @org.junit.Test
-    public void grayScalePixels() {
+    @Test
+    public void testGrayScalePixels() {
 
         int[] pixels = new int[]{
             argbToPixel(1, 255, 255, 255),
@@ -38,8 +40,8 @@ public class ColorTest {
         });
     }
 
-    @org.junit.Test
-    public void darkerPixels() {
+    @Test
+    public void testDarkerPixels() {
 
         int[] pixels = new int[]{
             argbToPixel(1, 255, 255, 255),
@@ -55,8 +57,8 @@ public class ColorTest {
         });
     }
 
-    @org.junit.Test
-    public void lightenPixels() {
+    @Test
+    public void testLightenPixels() {
 
         int[] pixels = new int[]{
             argbToPixel(1, 255, 255, 255),
@@ -72,8 +74,8 @@ public class ColorTest {
         });
     }
 
-    @org.junit.Test
-    public void saturatePixels() {
+    @Test
+    public void testSaturatePixels() {
 
         int[] pixels = new int[]{
             argbToPixel(1, 255, 255, 255),
@@ -90,8 +92,8 @@ public class ColorTest {
         });
     }
 
-    @org.junit.Test
-    public void desaturatePixels() {
+    @Test
+    public void testDesaturatePixels() {
 
         int[] pixels = new int[]{
             argbToPixel(1, 255, 255, 255),
@@ -108,8 +110,8 @@ public class ColorTest {
         });
     }
 
-    @org.junit.Test
-    public void binarizePixels() {
+    @Test
+    public void testBinarizePixels() {
 
         int[] pixels = new int[]{
             argbToPixel(1, 255, 255, 255),
@@ -126,8 +128,8 @@ public class ColorTest {
         });
     }
 
-    @org.junit.Test
-    public void gammaPixels() {
+    @Test
+    public void testGammaPixels() {
 
         int[] pixels = new int[]{
             argbToPixel(1, 255, 255, 255),
@@ -145,8 +147,8 @@ public class ColorTest {
     }
 
 
-    @org.junit.Test
-    public void thresholdPixels() {
+    @Test
+    public void testThresholdPixels() {
 
         int[] pixels = new int[]{
             argbToPixel(1, 255, 255, 255),
